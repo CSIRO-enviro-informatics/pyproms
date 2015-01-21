@@ -1,0 +1,4 @@
+This software is subject to the CSIRO Open Source Licence, v1.
+
+See: http://pid.csiro.au/id/licence/csiro-open-source-software-v1.0
+

@@ -1,0 +1,3 @@
+import tests.activity_tests
+import tests.entity_tests
+import tests.report_tests
