@@ -1,7 +1,8 @@
 import requests
 
 
-class Reporter:
+class ReportSender:
+
     def post(self, report_register_uri, report):
         """
         POSTS an RDF-serialised Report object to a PROMS server instance
@@ -15,8 +16,7 @@ class Reporter:
         if not report_register_uri.endswith('/'):
             report_register_uri += '/'
 
-        #get the RDF version of the Report
-        report_str = report.get_graph().serialize(format='n3').decode('utf-8')
+        report_str = report.serialize_graph().decode('utf-8')
 
         #POST the Report to PROMS
         headers = {'Content-type': 'text/turtle'}

@@ -2,4 +2,4 @@
 from pyproms.activity import Activity
 from pyproms.entity import Entity, ConfidentialityStatus
 from pyproms.report import Report, ReportType
-from pyproms.reporter import Reporter
+from pyproms.report_sender import ReportSender

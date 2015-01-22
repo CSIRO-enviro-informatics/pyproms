@@ -1,114 +1,107 @@
-from rdflib import URIRef, BNode, Literal, Namespace, Graph
-from rdflib.namespace import RDF
+from rdflib import URIRef, Literal, Namespace, Graph
+from rdflib.namespace import RDF, RDFS
 import datetime
-import uuid
+from pyproms.rdfclass import RdfClass
+from pyproms.entity import Entity
+from pyproms.agent import Agent
 
 
 # Todo: change to like Entity
 # TODO: allow Activity - Activity relationships
-class Activity:
+class Activity(RdfClass):
     def __init__(self,
+                 prov_or_proms,
+                 label,
                  uri=None,
-                 title=None,
-                 wasAttributedTo=None,
+                 wasAssociatedWith=None,
                  startedAtTime=None,
                  endedAtTime=None,
-                 description=None,
+                 comment=None,
                  used_entities=None,
                  generated_entities=None,
                  wasInformedBy=None):
-        """
-        Creates objects of type PROMS-O Activity
 
-        :param uri: A URI for this Activity. Must be either a URI or a None. If None, a BNode will be created for the Activity.
-        :param title: dc:title
-        :param description: dc:description
-        :param wasAttributedTo: prov:wasAttributedTo
-        :param startedAtTime: prov:startedAtTime or proms:startedAtTimeDiffStep
-        :param endedAtTime: prov:endedAtTime or proms:endedAtTimeDiffStep
-        :param wasInformedBy: prov:wasInformedBy
-        :param used_entities: List of prov:Entities
-        :param generated_entities: List of prov:Entities
-        :return: nothing (an initialised Activity object)
-        """
+        RdfClass.__init__(self, label, uri, comment)
 
-        #region Set instance variables
-        if uri is None:
-            # no URI given so create a placeholder to replace on Report generation
-            self.uri = 'http://placeholder.org#' + str(uuid.uuid4())
-        else:
-            # this Entity has a URI elsewhere defined
-            self.uri = uri
-
-        if title:
-            self.title = title
-
-        if wasAttributedTo:
-            self.wasAttributedTo = wasAttributedTo
-        
-        if startedAtTime:
-            self.startedAtTime = startedAtTime
-            
-        if endedAtTime:
-            self.endedAtTime = endedAtTime
-
-        if description:
-            self.description = description
-
+        self.prov_or_proms = prov_or_proms
+        self.wasAssociatedWith = wasAssociatedWith
+        self.startedAtTime = startedAtTime
+        self.endedAtTime = endedAtTime
+        self.used_entities = used_entities
         if used_entities:
-            self.used_entities = used_entities
-
+            self.set_used_entities(used_entities)
+        else:
+            self.used_entities = None
         if generated_entities:
-            self.generated_entities = generated_entities
+            self.set_generated_entities(generated_entities)
+        else:
+            self.generated_entities = None
+        self.wasInformedBy = wasInformedBy
 
-        if wasInformedBy:
-            self.wasInformedBy = wasInformedBy
-        #endregion
+    def set_wasAssociatedWith(self, wasAssociatedWith):
+        if type(wasAssociatedWith) is Agent:
+            self.wasAssociatedWith = wasAssociatedWith
+        else:
+            raise TypeError('wasAssociatedWith must be an Agent, not a %s' % type(wasAssociatedWith))
 
-        #region Add instance variables to graph
-        self.g = Graph()
+    def set_startedAtTime(self, startedAtTime):
+        if type(startedAtTime) is datetime.datetime:
+            self.startedAtTime = startedAtTime
+        else:
+            raise TypeError('startedAtTime must be a datetime.datetime, not a %s' % type(startedAtTime))
+
+    def set_endedAtTime(self, endedAtTime):
+        if type(endedAtTime) is datetime.datetime:
+            self.startedAtTime = endedAtTime
+        else:
+            raise TypeError('endedAtTime must be a datetime.datetime, not a %s' % type(endedAtTime))
+
+    def set_used_entities(self, used_entities):
+        if all(isinstance(n, Entity) for n in used_entities):
+            self.used_entities = used_entities
+        else:
+            raise TypeError('used_entities must be a list of Entity objects')
+
+    def set_generated_entities(self, generated_entities):
+        if all(isinstance(n, Entity) for n in generated_entities):
+            self.used_entities = generated_entities
+        else:
+            raise TypeError('used_entities must be a list of Entity objects')
+
+    def set_wasInformedBy(self, wasInformedBy):
+        self.wasInformedBy = wasInformedBy
+
+    def make_graph(self):
+        RdfClass.make_graph(self)
 
         PROV = Namespace('http://www.w3.org/ns/prov#')
-        PROMS = Namespace('http://promsns.org/def/proms#')
         XSD = Namespace('http://www.w3.org/2001/XMLSchema#')
-        DC = Namespace('http://purl.org/dc/elements/1.1/')
+        PROMS = Namespace('http://promsns.org/def/proms#')
 
         self.g.add((URIRef(self.uri),
                     RDF.type,
                     PROV.Activity))
 
-        self.g.add((URIRef(self.uri),
-                    DC.title,
-                    Literal(self.title)))
+        # TODO: add Activity to PROMS-O
+        if self.prov_or_proms == 'PROMS':
+            self.g.add((URIRef(self.uri),
+                        RDF.type,
+                        PROMS.Activity))
 
-        self.g.add((URIRef(self.uri),
-                    PROV.wasAttributedTo,
-                    URIRef(self.wasAttributedTo)))
+        if self.wasAssociatedWith:
+            self.g.add((URIRef(self.uri),
+                        PROV.wasAssociatedWith,
+                        URIRef(self.wasAssociatedWith)))
 
-        if isinstance(self.startedAtTime, datetime.datetime):
-            #add an absolute time
+        if self.startedAtTime:
             self.g.add((URIRef(self.uri),
                         PROV.startedAtTime,
-                        Literal(self.startedAtTime.strftime("%Y-%m-%dT%H:%M:%S"), datatype=XSD.dateTime)))
-            #add a relative timestep integer
-            self.g.add((URIRef(self.uri),
-                        PROMS.startedAtTimeDiffStep,
-                        Literal(self.startedAtTime, datatype=XSD.integer)))
+                        URIRef(self.startedAtTime)))
 
-        if isinstance(self.endedAtTime, datetime.datetime):
-            #add an absolute timestep integer
+        if self.endedAtTime:
             self.g.add((URIRef(self.uri),
                         PROV.endedAtTime,
-                        Literal(self.endedAtTime.strftime("%Y-%m-%dT%H:%M:%S"), datatype=XSD.dateTime)))
-            #add a relative time
-            self.g.add((URIRef(self.uri),
-                        PROMS.endedAtTimeDiffStep,
-                        Literal(self.endedAtTime, datatype=XSD.integer)))
-
-        if self.description:
-            self.g.add((URIRef(self.uri),
-                        DC.description,
-                        Literal(self.description)))
+                        URIRef(self.endedAtTime)))
 
         if self.used_entities:
             for used_entity in self.used_entities:
@@ -117,7 +110,7 @@ class Activity:
                 #associate the Entity with the Activity
                 self.g.add((URIRef(self.uri),
                             PROV.used,
-                            URIRef(used_entity.get_id())))
+                            URIRef(used_entity.uri)))
 
         if self.generated_entities:
             for generated_entity in self.generated_entities:
@@ -126,31 +119,20 @@ class Activity:
                 #associate the Entity with the Activity
                 self.g.add((URIRef(self.uri),
                             PROV.generated,
-                            URIRef(generated_entity.get_id())))
+                            URIRef(generated_entity.uri)))
 
         if self.wasInformedBy:
             self.g.add((URIRef(self.uri),
                         PROV.wasInformedBy,
                         URIRef(self.wasInformedBy)))
-        #endregion
-
-        return
-
-    def get_id(self):
-        """
-        Get the node URI of this Activity, whether a BNode or URI.
-
-        :return: Either a BNode or a URI
-        """
-        return URIRef(self.uri)
 
     def get_graph(self):
         """
-        Generates the RDF graph of this Activity
+        Generates the RDF graph of this class
 
-        :return: This Activity's RDF graph according to PROMS-O
+        :return: This class's RDF graph
         """
+        if not self.g:
+            self.make_graph()
+
         return self.g
-
-
-

@@ -1,33 +1,32 @@
 from rdflib import URIRef, Literal, Namespace, Graph
-from rdflib.namespace import RDF
+from rdflib.namespace import RDF, RDFS
 import datetime
-import uuid
+from pyproms.rdfclass import RdfClass
+from pyproms.agent import Agent
 
 
 # TODO: allow Entity - Entity relationships
-class Entity:
+class Entity(RdfClass):
     def __init__(self,
                  prov_or_proms,
-                 title,
+                 label,
                  uri=None,
-                 description=None,
+                 comment=None,
+                 wasAttributedTo=None,
                  creator=None,
                  created=None,
                  licence=None,
                  confidentialityStatus=None,
                  metadataUri=None,
                  downloadURL=None):
-        self.prov_or_proms = prov_or_proms
-        self.g = None
-        # set placeholder URI, to be replaces at Report generation time
-        if uri:
-            self.uri = uri
-        else:
-            self.uri = 'http://placeholder.org#' + str(uuid.uuid4())
 
-        # title is compulsory
-        self.title = title
-        self.description = description
+        RdfClass.__init__(self, label, uri, comment)
+
+        self.prov_or_proms = prov_or_proms
+        if wasAttributedTo:
+            self.wasAttributedTo = self.set_wasAttributedTo(wasAttributedTo)
+        else:
+            self.wasAttributedTo = None
         self.creator = creator
         # default created time is now
         if created:
@@ -39,20 +38,20 @@ class Entity:
         self.metadataUri = metadataUri
         self.downloadURL = downloadURL
 
-    def set_uri(self, uri):
-        self.uri = uri
-
-    def set_title(self, title):
-        self.title = title
-
-    def set_description(self, description):
-        self.description = description
+    def set_wasAttributedTo(self, wasAttributedTo):
+        if type(wasAttributedTo) is Agent:
+            self.wasAttributedTo = wasAttributedTo
+        else:
+            raise TypeError('wasAttributedTo must be an Agent, not a %s' % type(wasAttributedTo))
 
     def set_creator(self, creator):
         self.creator = creator
 
     def set_created(self, created):
-        self.created = created
+        if type(created) is datetime.datetime:
+            self.created = created
+        else:
+            raise TypeError('startedAtTime must be a datetime.datetime, not a %s' % type(created))
 
     def set_licence(self, licence):
         self.licence = licence
@@ -67,7 +66,7 @@ class Entity:
         self.downloadURL = downloadURL
 
     def make_graph(self):
-        self.g = Graph()
+        RdfClass.make_graph(self)
 
         PROV = Namespace('http://www.w3.org/ns/prov#')
         XSD = Namespace('http://www.w3.org/2001/XMLSchema#')
@@ -84,15 +83,6 @@ class Entity:
             self.g.add((URIRef(self.uri),
                         RDF.type,
                         PROMS.Entity))
-
-        self.g.add((URIRef(self.uri),
-                    DC.title,
-                    Literal(self.title, datatype=XSD.string)))
-        
-        if self.description:
-            self.g.add((URIRef(self.uri),
-                        DC.title,
-                        Literal(self.title, datatype=XSD.string)))        
 
         if self.creator:
             self.g.add((URIRef(self.uri),
@@ -132,22 +122,17 @@ class Entity:
             self.g.add((URIRef(self.uri),
                         DCAT.downloadURL,
                         Literal(self.downloadURL, datatype=XSD.anyUri)))
-        #endregion        
 
     def get_graph(self):
         """
-        Generates the RDF graph of this Entity
+        Generates the RDF graph of this class
 
-        :return: This Entity's RDF graph according to PROMS-O
+        :return: This class's RDF graph
         """
-
         if not self.g:
             self.make_graph()
 
         return self.g
-
-    def serialize_graph(self, format='turtle'):
-        return self.get_graph().serialize(format=format)
 
 
 class ConfidentialityStatus:

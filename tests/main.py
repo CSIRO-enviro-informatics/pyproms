@@ -16,9 +16,10 @@ This file creates an example Report (External) with the following details:
 # TODO: move to examples
 # TODO: provide other examples
 # TODO: make tests check examples
-# TODO: increment pip versions & reputh
-# TODO: email Matt Paget & Ed re AHRCC process being changed now use pyproms
+# TODO: increment pip versions & republish
+# TODO: email Matt Pagett & Ed re AHRCC process being changed now use pyproms
 from pyproms.entity import Entity
+from pyproms.activity import Activity
 
 e = Entity('PROMS',
            'Test Entity',
@@ -27,4 +28,6 @@ e = Entity('PROMS',
 #e.set_uri('http://example.org/id/dataset/44')
 e.set_downloadURL('http://other.com')
 
-print e.serialize_graph('turtle')
+a = Activity('PROMS', 'Test Activity', used_entities=[e])
+
+print a.serialize_graph()
