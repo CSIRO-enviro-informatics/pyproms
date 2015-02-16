@@ -25,7 +25,6 @@ from pyproms.proms_reportingsystem import PromsReportingSystem
 from pyproms.proms_report import PromsReport, ReportType
 
 
-
 '''
 PROMS RS
 '''
