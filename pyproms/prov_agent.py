@@ -3,9 +3,9 @@ from rdflib.namespace import RDF, FOAF
 from pyproms.rdfclass import RdfClass
 
 
-class Agent(RdfClass):
+# TODO: split Agent into People and Software Agents for more in-depth handling later
+class ProvAgent(RdfClass):
     def __init__(self,
-                 prov_or_proms,
                  label,
                  uri=None,
                  comment=None,
@@ -17,7 +17,6 @@ class Agent(RdfClass):
 
         RdfClass.__init__(self, label, uri, comment)
 
-        self.prov_or_proms = prov_or_proms
         if actedOnBehalfOf:
             self.set_actedOnBehalfOf(actedOnBehalfOf)
         else:
@@ -28,7 +27,7 @@ class Agent(RdfClass):
         self.mbox = mbox
 
     def set_actedOnBehalfOf(self, actedOnBehalfOf):
-        if type(actedOnBehalfOf) is Agent:
+        if type(actedOnBehalfOf) is ProvAgent:
             self.actedOnBehalfOf = actedOnBehalfOf
         else:
             raise TypeError('actedOnBehalfOf must be an Agent, not a %s' % type(actedOnBehalfOf))
@@ -55,12 +54,6 @@ class Agent(RdfClass):
         self.g.add((URIRef(self.uri),
                     RDF.type,
                     PROV.Activity))
-
-        # TODO: add Activity to PROMS-O
-        if self.prov_or_proms == 'PROMS':
-            self.g.add((URIRef(self.uri),
-                        RDF.type,
-                        PROMS.Activity))
 
         if self.actedOnBehalfOf:
             self.g.add((URIRef(self.uri),

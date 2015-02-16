@@ -3,7 +3,7 @@ from rdflib.namespace import RDF, RDFS
 import uuid
 
 
-class RdfClass:
+class RdfClass(object):
     def __init__(self,
                  label,
                  uri=None,
@@ -48,7 +48,7 @@ class RdfClass:
         :return: This class's RDF graph
         """
         if not self.g:
-            self.__make_graph()
+            self.make_graph()
 
         return self.g
 

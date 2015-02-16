@@ -1,7 +1,8 @@
 import datetime
 from rdflib import URIRef, Namespace, Graph, Literal, BNode, compare, serializer
 from rdflib.namespace import RDF
-from pyproms import entity
+from pyproms.prov_entity import ProvEntity
+from pyproms.proms_confidentialitystatus import ConfidentialityStatus
 
 
 def test_entity_defined_elsewhere():
@@ -13,7 +14,7 @@ def test_entity_defined_elsewhere():
 
     #instantiate Entity & get_graph
     g2 = Graph()
-    e = entity.Entity(entity_uri, None, None, None, None,
+    e = ProvEntity(entity_uri, None, None, None, None,
                       None, None, None, None)
 
     g2 = e.get_graph()
@@ -38,7 +39,7 @@ def test_entity_defined_here():
     created = datetime.datetime.strptime("2014-06-23T10:15:16",
                                          "%Y-%m-%dT%H:%M:%S")
     creator = 'http://data.bioregionalassessments.gov.au/person/car587'
-    confidentialityStatus = entity.ConfidentialityStatus.PublicDomain
+    confidentialityStatus = ConfidentialityStatus.PublicDomain
     metadataUri = 'http://example.com/a_uri'
     dataUri = 'http://example.com/another_uri'
 
@@ -66,7 +67,7 @@ def test_entity_defined_here():
         dataUri, datatype=XSD.anyUri)))
 
     #instantiate Entity & get_graph
-    e = entity.Entity(entity_uri, title, description, created, creator,
+    e = ProvEntity(entity_uri, title, description, created, creator,
                       license, confidentialityStatus, metadataUri, dataUri)
 
     g2 = e.get_graph()
@@ -85,3 +86,7 @@ def test_entity_defined_here():
 
     assert len(in_first) == 0
     assert len(in_second) == 0
+
+
+if __name__ == "__main__":
+    pass

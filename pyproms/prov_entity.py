@@ -1,14 +1,12 @@
-from rdflib import URIRef, Literal, Namespace, Graph
-from rdflib.namespace import RDF, RDFS
+from rdflib import URIRef, Literal, Namespace
+from rdflib.namespace import RDF
 import datetime
 from pyproms.rdfclass import RdfClass
-from pyproms.agent import Agent
 
 
 # TODO: allow Entity - Entity relationships
-class Entity(RdfClass):
+class ProvEntity(RdfClass):
     def __init__(self,
-                 prov_or_proms,
                  label,
                  uri=None,
                  comment=None,
@@ -22,7 +20,6 @@ class Entity(RdfClass):
 
         RdfClass.__init__(self, label, uri, comment)
 
-        self.prov_or_proms = prov_or_proms
         if wasAttributedTo:
             self.wasAttributedTo = self.set_wasAttributedTo(wasAttributedTo)
         else:
@@ -78,12 +75,6 @@ class Entity(RdfClass):
                     RDF.type,
                     PROV.Entity))
 
-        # TODO: add Entity to PROMS-O
-        if self.prov_or_proms == 'PROMS':
-            self.g.add((URIRef(self.uri),
-                        RDF.type,
-                        PROMS.Entity))
-
         if self.creator:
             self.g.add((URIRef(self.uri),
                         DC.creator,
@@ -133,15 +124,3 @@ class Entity(RdfClass):
             self.make_graph()
 
         return self.g
-
-
-class ConfidentialityStatus:
-    """
-    This class specifies acceptable URI values for
-    the proms:confidentialityStatus property of PROMS-O Entities.
-    """
-    PublicDomain = 'http://promsns.org/def/proms/confidentiality/publicdomain'
-    Private = 'http://promsns.org/def/proms/confidentiality/private'
-    AccessAvailableOnRequest = 'http://promsns.org/def/proms/confidentiality/accessavailableonrequest'
-    OwnerDepartmentOnly = 'http://promsns.org/def/proms/confidentiality/ownerdepartmentonly'
-    IndigenousSensitive = 'http://promsns.org/def/proms/confidentiality/indigenoussensitive'
