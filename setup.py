@@ -13,14 +13,13 @@ setup(
     description='PyPROMS is a client library to make PROV and PROMS documents and submit them to a PROMS server instance',
     keywords=['rdf', 'prov', 'prov-o', 'proms', 'proms-o', 'provenance'],
     long_description='''
-PyProms is a library of functions that helps Python coders generate
-provenance reports for their scripts using the PROV and PROMS Ontologies.
-It also has a function to send a Report to and instances of the PROMS
-Server.
+PyProms is a library of classes that helps Python coders generate
+provenance reports using the PROV and PROMS Ontologies. It also has a
+function to send a Report to an instances of the PROMS Server for
+storage.
 
-Within the library are a series of classes that match the PROMS-O OWL
-classes, for example the Python class Report matches the PROMS-O Report
-class.
+The classes match the PROMS-O OWL classes, for example the Python class
+'Report' matches the PROMS-O 'Report' class.
 
 PyProms is expected to be extended so if you need so add to it to get your
 reporting job done, please do so! If you're really nice, you might consider

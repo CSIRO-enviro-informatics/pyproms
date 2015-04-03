@@ -2,6 +2,10 @@ import requests
 
 
 class ReportSender:
+    """
+    A tiny class to send Reports to a PROMS Server instance.
+    Basically wraps requests post method
+    """
 
     def post(self, report_register_uri, report):
         """

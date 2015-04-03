@@ -5,6 +5,9 @@ from pyproms.prov_entity import ProvEntity
 
 # TODO: allow Entity - Entity relationships
 class PromsEntity(ProvEntity):
+    """
+    Creates a PROMS-O Entity instance
+    """
     def __init__(self,
                  label,
                  uri=None,
@@ -29,10 +32,15 @@ class PromsEntity(ProvEntity):
                             metadataUri=metadataUri,
                             downloadURL=downloadURL)
 
-        # if there PROMS Entities had properties that PROV Entity didn't have, we would do something with them here
+        # if the PROMS Entities had properties that PROV Entity didn't have, we would do something with them here
 
     # overloaded
     def make_graph(self):
+        """
+        Specialises ProvEntity.make_graph()
+
+        :return: an rdflib Graph object
+        """
         ProvEntity.make_graph(self)
 
         # add in a type of PROMS Entity --> this is the only PROV/PROMS Entity difference for now

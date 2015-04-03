@@ -20,6 +20,7 @@ This file creates an example Report (External) with the following details:
 from datetime import datetime
 from pyproms import ProvActivity, ProvAgent, ProvEntity
 from pyproms.proms_entity import PromsEntity
+from pyproms.proms_serviceentity import PromsServiceEntity
 from pyproms.proms_activity import PromsActivity
 from pyproms.proms_reportingsystem import PromsReportingSystem
 from pyproms.proms_report import PromsReport, ReportType
@@ -29,16 +30,16 @@ from pyproms.proms_report import PromsReport, ReportType
 PROMS RS
 '''
 rs1 = PromsReportingSystem('CSIRO Reporting System 2314',
-                          uri='http://pid.csiro.au/agent/rs-2314',
-                          comment='AHRCC Ocean Colour satellite ground station receiver processing trigger agent')
+                           uri='http://pid.csiro.au/agent/rs-2314',
+                           comment='AHRCC Ocean Colour satellite ground station receiver processing trigger agent')
 #print rs1.serialize_graph()
 
 '''
 PROV Entity
 '''
 e1 = ProvEntity('Test PROV Entity',
-               uri='http://go.to#wrtw',
-               downloadURL='http://example.com/4')
+                uri='http://go.to#wrtw',
+                downloadURL='http://example.com/4')
 e1.set_uri('http://example.org/id/dataset/44')
 e1.set_downloadURL('http://other.com')
 #print e1.serialize_graph(format="turtle")
@@ -62,6 +63,15 @@ e3 = ProvEntity('Test PROV Entity #2')
 #print e1.serialize_graph(format="turtle")
 
 '''
+PROMS ServiceEntity
+'''
+e4 = PromsServiceEntity('Geofabric SimpleFeatures WMS request',
+                        serviceBaseUri='http://geofabric.bom.gov.au/simplefeatures/ows',
+                        query='request=GetMap&service=WMS&version=1.2&layers=ahgf_shcarto:AHGFWaterbody,ahgf_shcarto:AHGFMappedStream&format=image%2Fpng&WIDTH=500&HEIGHT=500&BBOX=146.815,-42.05,147.033,-41.825',
+                        queriedAtTime=datetime.now())
+#print e2.serialize_graph(format="turtle")
+
+'''
 PROV Agent
 '''
 ag1 = ProvAgent('Agent Nick',
@@ -77,19 +87,19 @@ a1 = ProvActivity('Test PROV Activity',
                   datetime.strptime('2015-01-01T14:00:00', '%Y-%m-%dT%H:%M:%S'),
                   uri=None,
                   wasAssociatedWith=ag1,
-                  used_entities=[e1, e2])
+                  used_entities=[e1, e2, e4])
 #print a1.serialize_graph(format="turtle")
 
 '''
 PROV Activity
 '''
 a1b = ProvActivity('Test PROV Activity B',
-                  datetime.strptime('2015-01-01T14:01:00', '%Y-%m-%dT%H:%M:%S'),
-                  datetime.strptime('2015-01-01T15:00:00', '%Y-%m-%dT%H:%M:%S'),
-                  uri=None,
-                  wasAssociatedWith=ag1,
-                  wasInformedBy=a1,
-                  used_entities=[e1, e2])
+                   datetime.strptime('2015-01-01T14:01:00', '%Y-%m-%dT%H:%M:%S'),
+                   datetime.strptime('2015-01-01T15:00:00', '%Y-%m-%dT%H:%M:%S'),
+                   uri=None,
+                   wasAssociatedWith=ag1,
+                   wasInformedBy=a1,
+                   used_entities=[e1, e2])
 #print a1b.serialize_graph(format="turtle")
 
 '''
@@ -107,10 +117,10 @@ print a2.serialize_graph(format="turtle")
 #'''
 
 r1 = PromsReport('Test Report',
-                ReportType.External,
-                rs1,
-                'abc123-def456',
-                a1,
-                a1b,
-                'Test Report generation from pyproms')
+                 ReportType.External,
+                 rs1,
+                 'abc123-def456',
+                 a1,
+                 a1b,
+                 'Test Report generation from pyproms')
 print r1.serialize_graph()

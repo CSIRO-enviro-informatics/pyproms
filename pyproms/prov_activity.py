@@ -7,6 +7,9 @@ from pyproms.prov_agent import ProvAgent
 
 
 class ProvActivity(RdfClass):
+    """
+    Creates a PROV-O Activity instance
+    """
     def __init__(self,
                  label,
                  startedAtTime,
@@ -80,6 +83,11 @@ class ProvActivity(RdfClass):
             raise TypeError('wasAssociatedWith must be an Activity, not a %s' % type(wasInformedBy))
 
     def make_graph(self):
+        """
+        Specialises RdfClass.make_graph()
+
+        :return: an rdflib Graph object
+        """
         RdfClass.make_graph(self)
 
         XSD = Namespace('http://www.w3.org/2001/XMLSchema#')

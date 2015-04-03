@@ -7,6 +7,9 @@ import re
 
 # TODO: fix the recursion issue wrt wasAssociatedWith values
 class PromsActivity(ProvActivity):
+    """
+    Creates a PROMS-O Activity instance
+    """
     def __init__(self,
                  label,
                  startedAtTime,
@@ -30,14 +33,21 @@ class PromsActivity(ProvActivity):
                                generated_entities=generated_entities,
                                wasInformedBy=None)
 
-        # set PROM Activity-only properties
+        # set PROMS Activity-only properties
         self.namedActivityUri = self.set_namedActivityUri(namedActivityUri)
 
     def set_namedActivityUri(self, namedActivityUri):
+        """
+        Sets a wasAssociatedWith property for this Activity to another Activity
+        indicated via a URI
+
+        :param namedActivityUri: URIRef or string
+        :return: -
+        """
         if type(namedActivityUri) is URIRef:
             self.namedActivityUri = str(namedActivityUri)
         elif type(namedActivityUri) is str:
-            # it's a tring so we need to validate it via REGEX
+            # it's a string so we need to validate it via REGEX
             # Django's URL validator
             regex = re.compile(
                     r'^(?:http|ftp)s?://' # http:// or https://
@@ -55,6 +65,11 @@ class PromsActivity(ProvActivity):
             raise TypeError('wasAssociatedWith must be an Activity, not a %s' % type(namedActivityUri))
 
     def make_graph(self):
+        """
+        Specialises ProvActivity.make_graph()
+
+        :return: an rdflib Graph object
+        """
         ProvActivity.make_graph(self)
 
         # add in a type of PROMS Activity

@@ -5,6 +5,9 @@ from pyproms.rdfclass import RdfClass
 
 # TODO: split Agent into People and Software Agents for more in-depth handling later
 class ProvAgent(RdfClass):
+    """
+    Creates a PROV-O Agent instance
+    """
     def __init__(self,
                  label,
                  uri=None,
@@ -45,6 +48,11 @@ class ProvAgent(RdfClass):
         self.mbox = mbox
 
     def make_graph(self):
+        """
+        Specialises RdfClass.make_graph()
+
+        :return: an rdflib Graph object
+        """
         RdfClass.make_graph(self)
 
         PROV = Namespace('http://www.w3.org/ns/prov#')

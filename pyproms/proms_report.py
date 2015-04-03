@@ -8,6 +8,9 @@ import uuid
 
 
 class PromsReport(RdfClass):
+    """
+    Creates a PROV-O Report instance
+    """
     def __init__(self,
                  label,
                  reportType,
@@ -53,6 +56,11 @@ class PromsReport(RdfClass):
             raise TypeError('endingActivity must be an Agent, not a %s' % type(endingActivity))
 
     def make_graph(self):
+        """
+        Specialises RdfClass.make_graph()
+
+        :return: an rdflib Graph object
+        """
         RdfClass.make_graph(self)
 
         XSD = Namespace('http://www.w3.org/2001/XMLSchema#')

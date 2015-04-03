@@ -2,10 +2,14 @@ from rdflib import URIRef, Literal, Namespace
 from rdflib.namespace import RDF
 import datetime
 from pyproms.rdfclass import RdfClass
+from pyproms.prov_agent import ProvAgent
 
 
 # TODO: allow Entity - Entity relationships
 class ProvEntity(RdfClass):
+    """
+    Creates a PROV-O Entity instance
+    """
     def __init__(self,
                  label,
                  uri=None,
@@ -36,7 +40,7 @@ class ProvEntity(RdfClass):
         self.downloadURL = downloadURL
 
     def set_wasAttributedTo(self, wasAttributedTo):
-        if type(wasAttributedTo) is Agent:
+        if type(wasAttributedTo) is ProvAgent:
             self.wasAttributedTo = wasAttributedTo
         else:
             raise TypeError('wasAttributedTo must be an Agent, not a %s' % type(wasAttributedTo))
@@ -63,6 +67,11 @@ class ProvEntity(RdfClass):
         self.downloadURL = downloadURL
 
     def make_graph(self):
+        """
+        Specialises RdfClass.make_graph()
+
+        :return: an rdflib Graph object
+        """
         RdfClass.make_graph(self)
 
         PROV = Namespace('http://www.w3.org/ns/prov#')

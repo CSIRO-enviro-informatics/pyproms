@@ -4,6 +4,11 @@ import uuid
 
 
 class RdfClass(object):
+    """
+    This class creates generic RDF classes that require only an rdfs:label
+    property to be specified. It is mostly used by inheritance to produce
+    specialised RDF classes, such as Report or Entity.
+    """
     def __init__(self,
                  label,
                  uri=None,
@@ -23,6 +28,11 @@ class RdfClass(object):
         self.comment = comment
 
     def make_graph(self):
+        """
+        Constructs an RDF graph for this class using its instance variables
+
+        :return: an rdflib Graph object
+        """
         self.g = Graph()
 
         XSD = Namespace('http://www.w3.org/2001/XMLSchema#')
