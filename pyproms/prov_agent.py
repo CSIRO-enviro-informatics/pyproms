@@ -61,7 +61,7 @@ class ProvAgent(RdfClass):
 
         self.g.add((URIRef(self.uri),
                     RDF.type,
-                    PROV.Activity))
+                    PROV.Agent))
 
         if self.actedOnBehalfOf:
             self.g.add((URIRef(self.uri),

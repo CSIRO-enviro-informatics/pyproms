@@ -72,7 +72,7 @@ class ProvActivity(RdfClass):
 
     def set_generated_entities(self, generated_entities):
         if all(isinstance(n, ProvEntity) for n in generated_entities):
-            self.used_entities = generated_entities
+            self.generated_entities = generated_entities
         else:
             raise TypeError('used_entities must be a list of Entity objects')
 
