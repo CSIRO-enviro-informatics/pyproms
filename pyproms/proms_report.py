@@ -66,13 +66,18 @@ class PromsReport(RdfClass):
         XSD = Namespace('http://www.w3.org/2001/XMLSchema#')
         PROMS = Namespace('http://promsns.org/def/proms#')
 
-        self.g.add((URIRef(self.uri),
-                    RDF.type, 
-                    PROMS.Report))
-
-        self.g.add((URIRef(self.uri), 
-                    PROMS.reportType, 
-                    URIRef(self.reportType)))
+        if self.reportType == ReportType.Basic:
+            self.g.add((URIRef(self.uri),
+                        RDF.type,
+                        PROMS.BasicReport))
+        elif self.reportType == ReportType.External:
+            self.g.add((URIRef(self.uri),
+                        RDF.type,
+                        PROMS.ExternalReport))
+        elif self.reportType == ReportType.Internal:
+            self.g.add((URIRef(self.uri),
+                        RDF.type,
+                        PROMS.InternalReport))
 
         self.g = self.g + self.reportingSystem.get_graph()
         self.g.add((URIRef(self.uri),
@@ -99,6 +104,6 @@ class ReportType(object):
     This class specifies acceptable URI values for the proms:reportType
     property of PROMS-O Reports.
     """
-    Basic = 'http://promsns.org/def/proms#Basic'
-    External = 'http://promsns.org/def/proms#External'
-    Internal = 'http://promsns.org/def/proms#Internal'
+    Basic = 'http://promsns.org/def/proms#BasiclReport'
+    External = 'http://promsns.org/def/proms#ExternalReport'
+    Internal = 'http://promsns.org/def/proms#InternalReport'
