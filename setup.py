@@ -4,11 +4,11 @@ from setuptools import setup
 setup(
     name='pyproms',
     packages=['pyproms'],
-    version='1.1.2',
+    version='1.1.3',
     author='Nicholas Car',
     author_email='nicholas.car@csiro.au',
     url='https://github.com/ncar/pyproms',
-    download_url='https://github.com/ncar/pyproms/tarball/1.1.2',
+    download_url='https://github.com/ncar/pyproms/tarball/1.1.3',
     license='LICENSE.txt',
     description='PyPROMS is a client library to make PROV and PROMS documents and submit them to a PROMS server instance',
     keywords=['rdf', 'prov', 'prov-o', 'proms', 'proms-o', 'provenance'],
