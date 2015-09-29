@@ -1,12 +1,12 @@
 from rdflib import URIRef, Namespace, Literal
 from rdflib.namespace import RDF
 import datetime
-from pyproms.rdfclass import RdfClass
+from pyproms.owlclass import OwlClass
 from pyproms.prov_entity import ProvEntity
 from pyproms.prov_agent import ProvAgent
 
 
-class ProvActivity(RdfClass):
+class ProvActivity(OwlClass):
     """
     Creates a PROV-O Activity instance
     """
@@ -21,7 +21,7 @@ class ProvActivity(RdfClass):
                  generated_entities=None,
                  wasInformedBy=None):
 
-        RdfClass.__init__(self, label, uri, comment)
+        OwlClass.__init__(self, label, uri, comment)
 
         self.set_startedAtTime(startedAtTime)
         self.set_endedAtTime(endedAtTime)
@@ -88,7 +88,7 @@ class ProvActivity(RdfClass):
 
         :return: an rdflib Graph object
         """
-        RdfClass.make_graph(self)
+        OwlClass.make_graph(self)
 
         XSD = Namespace('http://www.w3.org/2001/XMLSchema#')
         PROV = Namespace('http://www.w3.org/ns/prov#')

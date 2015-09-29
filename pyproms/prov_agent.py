@@ -1,10 +1,10 @@
 from rdflib import URIRef, Literal, Namespace
 from rdflib.namespace import RDF, FOAF
-from pyproms.rdfclass import RdfClass
+from pyproms.owlclass import OwlClass
 
 
 # TODO: split Agent into People and Software Agents for more in-depth handling later
-class ProvAgent(RdfClass):
+class ProvAgent(OwlClass):
     """
     Creates a PROV-O Agent instance
     """
@@ -18,7 +18,7 @@ class ProvAgent(RdfClass):
                  familyName=None,
                  mbox=None):
 
-        RdfClass.__init__(self, label, uri, comment)
+        OwlClass.__init__(self, label, uri, comment)
 
         if actedOnBehalfOf:
             self.set_actedOnBehalfOf(actedOnBehalfOf)
@@ -33,7 +33,7 @@ class ProvAgent(RdfClass):
         if type(actedOnBehalfOf) is ProvAgent:
             self.actedOnBehalfOf = actedOnBehalfOf
         else:
-            raise TypeError('actedOnBehalfOf must be an Agent, not a %s' % type(actedOnBehalfOf))
+            raise TypeError('wasAttributedTo must be an Agent, not a %s' % type(actedOnBehalfOf))
 
     def set_name(self, name):
         self.name = name
@@ -53,20 +53,20 @@ class ProvAgent(RdfClass):
 
         :return: an rdflib Graph object
         """
-        RdfClass.make_graph(self)
+        OwlClass.make_graph(self)
 
         PROV = Namespace('http://www.w3.org/ns/prov#')
         XSD = Namespace('http://www.w3.org/2001/XMLSchema#')
-        PROMS = Namespace('http://promsns.org/def/proms#')
 
         self.g.add((URIRef(self.uri),
                     RDF.type,
                     PROV.Agent))
 
         if self.actedOnBehalfOf:
+            self.g = self.g + self.actedOnBehalfOf.get_graph()
             self.g.add((URIRef(self.uri),
                         PROV.actedOnBehalfOf,
-                        URIRef(self.actedOnBehalfOf)))
+                        URIRef(self.actedOnBehalfOf.uri)))
 
         if self.name:
             self.g.add((URIRef(self.uri),

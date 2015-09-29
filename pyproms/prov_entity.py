@@ -1,12 +1,12 @@
 from rdflib import URIRef, Literal, Namespace
 from rdflib.namespace import RDF
 import datetime
-from pyproms.rdfclass import RdfClass
+from pyproms.owlclass import OwlClass
 from pyproms.prov_agent import ProvAgent
 
 
 # TODO: allow Entity - Entity relationships
-class ProvEntity(RdfClass):
+class ProvEntity(OwlClass):
     """
     Creates a PROV-O Entity instance
     """
@@ -18,26 +18,32 @@ class ProvEntity(RdfClass):
                  creator=None,
                  created=None,
                  licence=None,
-                 confidentialityStatus=None,
                  metadataUri=None,
-                 downloadURL=None):
+                 downloadURL=None,
+                 value=None):
 
-        RdfClass.__init__(self, label, uri, comment)
+        OwlClass.__init__(self, label, uri, comment)
 
         if wasAttributedTo:
-            self.wasAttributedTo = self.set_wasAttributedTo(wasAttributedTo)
+            self.set_wasAttributedTo(wasAttributedTo)
         else:
             self.wasAttributedTo = None
-        self.creator = creator
+        if creator:
+            self.set_creator(creator)
+        else:
+            self.creator = None
         # default created time is now
         if created:
             self.created = created
         else:
             self.created = datetime.datetime.now()
         self.licence = licence
-        self.confidentialityStatus = confidentialityStatus
         self.metadataUri = metadataUri
         self.downloadURL = downloadURL
+        if value:
+            self.set_value(value)
+        else:
+            self.value = None
 
     def set_wasAttributedTo(self, wasAttributedTo):
         if type(wasAttributedTo) is ProvAgent:
@@ -46,7 +52,10 @@ class ProvEntity(RdfClass):
             raise TypeError('wasAttributedTo must be an Agent, not a %s' % type(wasAttributedTo))
 
     def set_creator(self, creator):
-        self.creator = creator
+        if type(creator) is ProvAgent:
+            self.creator = creator
+        else:
+            raise TypeError('creator must be an Agent, not a %s' % type(creator))
 
     def set_created(self, created):
         if type(created) is datetime.datetime:
@@ -57,14 +66,20 @@ class ProvEntity(RdfClass):
     def set_licence(self, licence):
         self.licence = licence
 
-    def set_confidentialityStatus(self, confidentialityStatus):
-        self.confidentialityStatus = confidentialityStatus
-
     def set_metadataUri(self, metadataUri):
         self.metadataUri = metadataUri
 
     def set_downloadURL(self, downloadURL):
         self.downloadURL = downloadURL
+
+    def set_value(self, value):
+        if (type(value) is str or
+            type(value) is float or
+            type(value) is int or
+            type(value) is datetime.datetime):
+            self.value = value
+        else:
+            raise TypeError('Entity \'value\' must be a string, int, float or datetime, not a %s' % type(value))
 
     def make_graph(self):
         """
@@ -72,7 +87,7 @@ class ProvEntity(RdfClass):
 
         :return: an rdflib Graph object
         """
-        RdfClass.make_graph(self)
+        OwlClass.make_graph(self)
 
         PROV = Namespace('http://www.w3.org/ns/prov#')
         XSD = Namespace('http://www.w3.org/2001/XMLSchema#')
@@ -84,10 +99,17 @@ class ProvEntity(RdfClass):
                     RDF.type,
                     PROV.Entity))
 
-        if self.creator:
+        if self.wasAttributedTo:
+            self.g = self.g + self.wasAttributedTo.get_graph()
             self.g.add((URIRef(self.uri),
-                        DC.creator,
-                        URIRef(self.creator)))
+                        PROV.wasAttributedTo,
+                        URIRef(self.wasAttributedTo.uri)))
+
+        if self.creator:
+            self.g = self.g + self.creator.get_graph()
+            self.g.add((URIRef(self.uri),
+                        PROV.creator,
+                        URIRef(self.creator.uri)))
         
         if self.created:
             self.g.add((URIRef(self.uri),
@@ -107,12 +129,6 @@ class ProvEntity(RdfClass):
                         DC.licence,
                         Literal(self.metadataUri, datatype=XSD.anyUri)))
 
-        # TODO review PROMS-O property confidentialityStatus
-        if self.confidentialityStatus:
-            self.g.add((URIRef(self.uri),
-                        PROMS.confidentialityStatus,
-                        Literal(self.metadataUri, datatype=XSD.anyUri)))
-
         if self.metadataUri:
             self.g.add((URIRef(self.uri),
                         PROMS.metadataUri,
@@ -122,6 +138,24 @@ class ProvEntity(RdfClass):
             self.g.add((URIRef(self.uri),
                         DCAT.downloadURL,
                         Literal(self.downloadURL, datatype=XSD.anyUri)))
+
+        if self.value:
+            if (type(self.value) is datetime.datetime):
+                self.g.add((URIRef(self.uri),
+                            PROV.value,
+                            Literal(self.value, datatype=XSD.dateTime)))
+            elif (type(self.value) is int):
+                self.g.add((URIRef(self.uri),
+                            PROV.value,
+                            Literal(self.value, datatype=XSD.integer)))
+            elif (type(self.value) is float):
+                self.g.add((URIRef(self.uri),
+                            PROV.value,
+                            Literal(self.value, datatype=XSD.float)))
+            else:  # string
+                self.g.add((URIRef(self.uri),
+                            PROV.value,
+                            Literal(self.value, datatype=XSD.string)))
 
     def get_graph(self):
         """

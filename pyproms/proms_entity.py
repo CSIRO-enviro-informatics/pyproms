@@ -28,7 +28,6 @@ class PromsEntity(ProvEntity):
                             creator=creator,
                             created=created,
                             licence=licence,
-                            confidentialityStatus=confidentialityStatus,
                             metadataUri=metadataUri,
                             downloadURL=downloadURL)
 

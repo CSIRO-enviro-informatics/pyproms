@@ -1,6 +1,6 @@
 from rdflib import URIRef, Namespace
 from rdflib.namespace import RDF
-from pyproms.rdfclass import RdfClass
+from pyproms.owlclass import OwlClass
 from pyproms.prov_activity import ProvActivity
 import re
 
@@ -31,7 +31,7 @@ class PromsActivity(ProvActivity):
                                comment=comment,
                                used_entities=used_entities,
                                generated_entities=generated_entities,
-                               wasInformedBy=None)
+                               wasInformedBy=wasInformedBy)
 
         # set PROMS Activity-only properties
         self.namedActivityUri = self.set_namedActivityUri(namedActivityUri)

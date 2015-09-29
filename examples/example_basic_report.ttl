@@ -1,0 +1,32 @@
+@prefix ns1: <http://www.w3.org/ns/prov#> .
+@prefix ns2: <http://promsns.org/def/proms#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://placeholder.org#7dcef582-ddee-479b-84a4-8df7a0e033bc> a ns2:BasicReport,
+        ns2:Report,
+        <http://www.w3.org/2002/07/owl#Class> ;
+    rdfs:label "Test Basic Report PyPROMS"^^xsd:string ;
+    ns2:nativeId "report-71"^^xsd:string ;
+    ns2:reportingSystem <http://placeholder.org#4dd21602-974d-4d56-aee7-46a77096df9a> ;
+    ns2:startingActivity <http://placeholder.org#2f340ed8-e680-49c8-b7f0-5d50a98eace6> .
+
+<http://placeholder.org#2f340ed8-e680-49c8-b7f0-5d50a98eace6> a <http://www.w3.org/2002/07/owl#Class>,
+        ns1:Activity ;
+    rdfs:label "Test Activity"^^xsd:string ;
+    rdfs:comment "A test Activity"^^xsd:string ;
+    ns1:endedAtTime "2014-06-25T12:13:24"^^xsd:dateTime ;
+    ns1:startedAtTime "2014-06-25T12:13:14"^^xsd:dateTime ;
+    ns1:wasAssociatedWith <http://placeholder.org#a1516377-31a0-46e8-b542-fd950ccd67b8> .
+
+<http://placeholder.org#4dd21602-974d-4d56-aee7-46a77096df9a> a ns2:ReportingSystem,
+        <http://www.w3.org/2002/07/owl#Class>,
+        ns1:Agent ;
+    rdfs:label "Workflow System Z"^^xsd:string .
+
+<http://placeholder.org#a1516377-31a0-46e8-b542-fd950ccd67b8> a <http://www.w3.org/2002/07/owl#Class>,
+        ns1:Agent ;
+    rdfs:label "Agent X"^^xsd:string .
+

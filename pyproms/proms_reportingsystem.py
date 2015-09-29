@@ -20,7 +20,15 @@ class PromsReportingSystem(ProvAgent):
         familyName = None
         mbox = None
 
-        ProvAgent.__init__(self, label, uri, comment, actedOnBehalfOf, name, givenName, familyName, mbox)
+        ProvAgent.__init__(self,
+                           label,
+                           uri=uri,
+                           comment=comment,
+                           actedOnBehalfOf=actedOnBehalfOf,
+                           name=name,
+                           givenName=givenName,
+                           familyName=familyName,
+                           mbox=mbox)
 
     def make_graph(self):
         """

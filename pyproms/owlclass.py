@@ -1,9 +1,9 @@
 from rdflib import URIRef, Literal, Namespace, Graph
-from rdflib.namespace import RDF, RDFS
+from rdflib.namespace import RDF, RDFS, OWL
 import uuid
 
 
-class RdfClass(object):
+class OwlClass(object):
     """
     This class creates generic RDF classes that require only an rdfs:label
     property to be specified. It is mostly used by inheritance to produce
@@ -39,7 +39,7 @@ class RdfClass(object):
 
         self.g.add((URIRef(self.uri),
                     RDF.type,
-                    RDFS.Class))
+                    OWL.Class))
 
         if self.uri:
             self.g.add((URIRef(self.uri),

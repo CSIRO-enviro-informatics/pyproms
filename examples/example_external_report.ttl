@@ -1,0 +1,64 @@
+@prefix ns1: <http://www.w3.org/ns/prov#> .
+@prefix ns2: <http://purl.org/dc/elements/1.1/> .
+@prefix ns3: <http://promsns.org/def/proms#> .
+@prefix ns4: <http://www.w3.org/ns/dcat#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://placeholder.org#04300094-c251-493c-b3f1-9f859fa2d8f2> a ns3:BasicReport,
+        ns3:Report,
+        <http://www.w3.org/2002/07/owl#Class> ;
+    rdfs:label "Test External Report PyPROMS"^^xsd:string ;
+    ns3:nativeId "report-71"^^xsd:string ;
+    ns3:reportingSystem <http://placeholder.org#bd531d4f-35cd-4186-876c-c4310c179b97> ;
+    ns3:startingActivity <http://placeholder.org#a0d34ac3-1af3-4732-9488-5e89308a851d> .
+
+<http://placeholder.org#2d017eef-3de5-47e6-8bec-a502b9b06b43> a <http://www.w3.org/2002/07/owl#Class>,
+        ns1:Entity ;
+    rdfs:label "Input 02"^^xsd:string ;
+    ns2:created "2014-06-25T12:00:02"^^xsd:dateTime ;
+    ns2:licence "None"^^xsd:anyUri ;
+    rdfs:comment "The Entity, 02"^^xsd:string ;
+    ns1:wasAttributedTo <http://placeholder.org#d686c2c1-7dbe-4125-a069-d2b2b6fe551c> .
+
+<http://placeholder.org#a0d34ac3-1af3-4732-9488-5e89308a851d> a <http://www.w3.org/2002/07/owl#Class>,
+        ns1:Activity ;
+    rdfs:label "Test Activity"^^xsd:string ;
+    rdfs:comment "A test Activity"^^xsd:string ;
+    ns1:endedAtTime "2014-06-25T12:13:24"^^xsd:dateTime ;
+    ns1:generated <http://web3-wron:8080/water/thredds/somefile.nc> ;
+    ns1:startedAtTime "2014-06-25T12:13:14"^^xsd:dateTime ;
+    ns1:used <http://placeholder.org#2d017eef-3de5-47e6-8bec-a502b9b06b43>,
+        <http://web3-wron:8080/water/thredds/fileServer/Awra/AwraL/355/Daily/Ss/2012/20120923_Ss> ;
+    ns1:wasAssociatedWith <http://placeholder.org#485b715a-43a3-4641-8807-99dc8742c9c0> .
+
+<http://placeholder.org#bd531d4f-35cd-4186-876c-c4310c179b97> a ns3:ReportingSystem,
+        <http://www.w3.org/2002/07/owl#Class>,
+        ns1:Agent ;
+    rdfs:label "Workflow System Z"^^xsd:string .
+
+<http://web3-wron:8080/water/thredds/fileServer/Awra/AwraL/355/Daily/Ss/2012/20120923_Ss> a <http://www.w3.org/2002/07/owl#Class>,
+        ns1:Entity ;
+    rdfs:label ""^^xsd:string ;
+    ns2:created "2015-09-30T00:27:42"^^xsd:dateTime .
+
+<http://web3-wron:8080/water/thredds/somefile.nc> a <http://www.w3.org/2002/07/owl#Class>,
+        ns1:Entity ;
+    rdfs:label "Output Data"^^xsd:string ;
+    ns2:created "2014-06-25T12:13:01"^^xsd:dateTime ;
+    ns2:licence "None"^^xsd:anyUri ;
+    rdfs:comment "The Entity, 03"^^xsd:string ;
+    ns4:downloadURL "http://web3-wron:8080/water/thredds/somefile.nc"^^xsd:anyUri ;
+    ns1:creator <http://placeholder.org#485b715a-43a3-4641-8807-99dc8742c9c0> ;
+    ns1:wasAttributedTo <http://placeholder.org#d686c2c1-7dbe-4125-a069-d2b2b6fe551c> .
+
+<http://placeholder.org#485b715a-43a3-4641-8807-99dc8742c9c0> a <http://www.w3.org/2002/07/owl#Class>,
+        ns1:Agent ;
+    rdfs:label "Agent X"^^xsd:string .
+
+<http://placeholder.org#d686c2c1-7dbe-4125-a069-d2b2b6fe551c> a <http://www.w3.org/2002/07/owl#Class>,
+        ns1:Agent ;
+    rdfs:label "Agent Orange"^^xsd:string .
+

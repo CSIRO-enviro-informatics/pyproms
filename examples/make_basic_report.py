@@ -1,57 +1,37 @@
 import datetime
 from pyproms import *
 
-#a very basic Entity defined by a URI only
-entity_used_01 = Entity('http://web3-wron:8080/water/thredds/fileServer/Awra/AwraL/355/Daily/Ss/2012/20120923_Ss')
+# Example Agents, could be people or Organisations
+ag = ProvAgent("Agent Orange")
+agx = ProvAgent("Agent X")
 
-entity_used_02 = Entity(None,
-                        'Entity 02',
-                        'The Entity, 02',
-                        datetime.datetime.strptime('2014-06-25T12:00:02', '%Y-%m-%dT%H:%M:%S'),
-                        'http://pid.csiro.au/person/car587',
-                        'http://creativecommons.org/licenses/by/4.0/',
-                        ConfidentialityStatus.PublicDomain,
-                        None,
-                        None)
+# A ReportingSystem (Agent subclass)
+# This is the system that actually generates the Reports
+rs = PromsReportingSystem('Workflow System Z')
 
-entity_generated_03 = Entity(None,
-                             'Entity 03',
-                             'The Entity, 03',
-                             datetime.datetime.strptime('2014-06-25T12:13:01', '%Y-%m-%dT%H:%M:%S'),
-                             'http://pid.csiro.au/person/car587',
-                             'http://creativecommons.org/licenses/by/4.0/',
-                             ConfidentialityStatus.PublicDomain,
-                             None,
-                             'http://web3-wron:8080/water/thredds/somefile.nc')
-
-#make the Activity
+# The single Activity, as Basic Reports only allow 1
 startedAtTime = datetime.datetime.strptime('2014-06-25T12:13:14', '%Y-%m-%dT%H:%M:%S')
 endedAtTime = datetime.datetime.strptime('2014-06-25T12:13:24', '%Y-%m-%dT%H:%M:%S')
-report_activity = Activity(None,
-                           'Test Activity',
-                           'A tests Activity',
-                           'http://pid.csiro.au/person/car587',
-                           startedAtTime, endedAtTime,
-                           [entity_used_01, entity_used_02],
-                           [entity_generated_03])
+report_activity = ProvActivity('Test Activity',
+                               startedAtTime,
+                               endedAtTime,
+                               wasAssociatedWith=agx,
+                               comment='A test Activity')
 
-#make the Report
-r = Report(None,
-           ReportType.External,
-           'Test Basic Report PyPROMS',
-           'A tests Basic Report',
-           report_activity,
-           startedAtTime,
-           report_activity,
-           endedAtTime)
+# The Report
+r = PromsExternalReport('Test Basic Report PyPROMS',
+                        rs,  # this is the Reporting System
+                        'report-71',  # this could be anything that the Reporting System uses to keep track of Reports
+                        report_activity,
+                        comment='This is an example Basic Report')
 
-#save the report
-with open("basic_report.ttl", 'w') as f:
+# Save the report
+report_file = 'example_basic_report.ttl'
+with open(report_file, 'w') as f:
     f.write((r.get_graph().serialize(format='n3')).decode('UTF-8'))
 
-#print the report
-print open("basic_report.ttl").read()
+ #print the report, just for testing
+print open(report_file).read()
 
-#make the reporter
-#pr = Reporter()
-#pr.post('http://butterfree-bu.nexus.csiro.au:8000/reportingsystem/demosys/report/', r)
+# Send (POST) the Report to a PROMS Server instance
+#pr = Reporter().post('http://some-proms-server.org.au/reportingsystem/workflow_system_z/report/', r)
