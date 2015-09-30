@@ -1,14 +1,11 @@
 from rdflib import URIRef, Namespace
 from rdflib.namespace import RDF
 from pyproms.proms_report import PromsReport
-from pyproms.prov_activity import ProvActivity
-from pyproms.proms_activity import PromsActivity
-from proms_error import PromsDataModelError
 
 
 class PromsExternalReport(PromsReport):
     """
-    Creates a PROMS-O Basic Report instance
+    Creates a PROMS-O External Report instance
     
     This has no new features on top of Report but it's worth maintaining the separate classes
     """
@@ -20,19 +17,11 @@ class PromsExternalReport(PromsReport):
                  comment=None):
         
         PromsReport.__init__(self,
-                                  label,
-                                  reportingSystem,
-                                  nativeId,
-                                  comment)
-
-        self.__set_reportActivity(reportActivity)
-
-    def __set_reportActivity(self, reportActivity):
-        if (type(reportActivity) is ProvActivity or
-            type(reportActivity) is PromsActivity):
-            self.reportActivity = reportActivity
-        else:
-            raise TypeError('reportActivity must be an Agent, not a %s' % type(reportActivity))
+                             label,
+                             reportingSystem,
+                             nativeId,
+                             reportActivity,
+                             comment)
 
     def make_graph(self):
         """
@@ -44,12 +33,8 @@ class PromsExternalReport(PromsReport):
 
         PROMS = Namespace('http://promsns.org/def/proms#')
 
+        # The only thing we need to do here is to redefine the Report class as BasicReport.
+        # There are no additional properties as the input & output Entities are part of the Activity
         self.g.add((URIRef(self.uri),
                     RDF.type,
-                    PROMS.BasicReport))
-
-        self.g = self.g + self.reportActivity.get_graph()
-
-        self.g.add((URIRef(self.uri),
-                    PROMS.startingActivity,
-                    URIRef(self.reportActivity.uri)))
+                    PROMS.ExternalReport))

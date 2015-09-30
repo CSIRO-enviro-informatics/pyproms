@@ -4,7 +4,7 @@ from setuptools import setup
 setup(
     name='pyproms',
     packages=['pyproms'],
-    version='1.1.6',
+    version='1.1.7',
     author='Nicholas Car',
     author_email='nicholas.car@csiro.au',
     url='https://stash.csiro.au/projects/EIS/repos/proms-clients-python',

@@ -8,9 +8,9 @@ from proms_error import PromsDataModelError
 
 class PromsInternalReport(PromsReport):
     """
-    Creates a PROMS-O Basic Report instance
+    Creates a PROMS-O Internal Report instance
     
-    This has no new features on top of Report but it's worth maintaining the separate classes
+    This has the set of all Activities and an ending activity in addition to a Report class object
     """
     def __init__(self,
                  label,
@@ -25,28 +25,17 @@ class PromsInternalReport(PromsReport):
                              label,
                              reportingSystem,
                              nativeId,
+                             startingActivity,
                              comment)
 
-        self.__set_startingActivity(startingActivity)
-        self.__set_endingActivity(endingActivity)
+        self.__set_endingActivity(startingActivity, endingActivity)
         self.__set_all_activities(all_activities)
 
-    def __set_startingActivity(self, startingActivity):
-        if (type(startingActivity) is ProvActivity or
-            type(startingActivity) is PromsActivity):
-            # TODO: enable this check
-            #if endingActivity is not None:
-            #    if startingActivity == endingActivity:
-            #        raise PromsDataModelError('For an Internal Report, the starting activity and ending activity must not be the same')
-            self.startingActivity = startingActivity
-        else:
-            raise TypeError('startingActivity must be an Agent, not a %s' % type(startingActivity))
-
-    def __set_endingActivity(self, endingActivity):
+    def __set_endingActivity(self, startingActivity, endingActivity):
         if (type(endingActivity) is ProvActivity or
             type(endingActivity) is PromsActivity):
-            if self.startingActivity is not None:
-                if endingActivity == self.startingActivity:
+            if startingActivity is not None:
+                if endingActivity == startingActivity:
                     raise PromsDataModelError('For an Internal Report, the ending activity and starting activity must not be the same')
             self.endingActivity = endingActivity
         else:
@@ -71,17 +60,15 @@ class PromsInternalReport(PromsReport):
         self.g.add((URIRef(self.uri),
                     RDF.type,
                     PROMS.InternalReport))
-        
-        self.g = self.g + self.startingActivity.get_graph()
-        self.g.add((URIRef(self.uri),
-                    PROMS.startingActivity,
-                    URIRef(self.startingActivity.uri)))
-
-        self.g = self.g + self.endingActivity.get_graph()
-        self.g.add((URIRef(self.uri),
-                    PROMS.endingActivity,
-                    URIRef(self.endingActivity.uri)))
 
         for activity in self.all_activities:
             # add the Activity to the graph
             self.g = self.g + activity.get_graph()
+
+        # remove the triple that points the endingActivity to the startingActivity in the Report class
+        self.g.remove((None, PROMS.endingActivity, None))
+        # re-add the endingActivity triple pointing to the new Activity
+        self.g.add((URIRef(self.uri),
+                    PROMS.endingActivity,
+                    URIRef(self.endingActivity.uri)))
+

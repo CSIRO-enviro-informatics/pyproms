@@ -19,11 +19,11 @@ report_activity = ProvActivity('Test Activity',
                                comment='A test Activity')
 
 # The Report
-r = PromsExternalReport('Test Basic Report PyPROMS',
-                        rs,  # this is the Reporting System
-                        'report-71',  # this could be anything that the Reporting System uses to keep track of Reports
-                        report_activity,
-                        comment='This is an example Basic Report')
+r = PromsBasicReport('Test Basic Report PyPROMS',
+                     rs,  # this is the Reporting System
+                     'report-71',  # this could be anything that the Reporting System uses to keep track of Reports
+                     report_activity,
+                     comment='This is an example Basic Report')
 
 # Save the report
 report_file = 'example_basic_report.ttl'

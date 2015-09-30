@@ -13,12 +13,14 @@ class PromsBasicReport(PromsReport):
                  label,
                  reportingSystem,
                  nativeId,
+                 reportActivity,
                  comment=None):
 
         PromsReport.__init__(self,
                              label,
                              reportingSystem,
                              nativeId,
+                             reportActivity,
                              comment)
 
     def make_graph(self):
@@ -31,6 +33,8 @@ class PromsBasicReport(PromsReport):
 
         PROMS = Namespace('http://promsns.org/def/proms#')
 
+        # The only thing we need to do here is to redefine the Report class as BasicReport.
+        # There are no additional properties
         self.g.add((URIRef(self.uri),
                     RDF.type,
                     PROMS.BasicReport))

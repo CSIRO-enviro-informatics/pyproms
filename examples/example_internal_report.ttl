@@ -1,117 +1,117 @@
-@prefix ns1: <http://www.w3.org/ns/dcat#> .
-@prefix ns2: <http://www.w3.org/ns/prov#> .
-@prefix ns3: <http://purl.org/dc/elements/1.1/> .
-@prefix ns4: <http://promsns.org/def/proms#> .
+@prefix ns1: <http://promsns.org/def/proms#> .
+@prefix ns2: <http://purl.org/dc/elements/1.1/> .
+@prefix ns3: <http://www.w3.org/ns/prov#> .
+@prefix ns4: <http://www.w3.org/ns/dcat#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<http://placeholder.org#349a7b96-1127-4859-8b32-75337cf00cdd> a ns4:InternalReport,
-        ns4:Report,
+<http://placeholder.org#43312f85-e1dc-4698-95b7-27c9fd86103c> a ns1:InternalReport,
+        ns1:Report,
         <http://www.w3.org/2002/07/owl#Class> ;
     rdfs:label "Test Internal Report PyPROMS"^^xsd:string ;
-    ns4:endingActivity <http://placeholder.org#4c82c8f2-87ad-44fd-ab8f-070553b9b49e> ;
-    ns4:nativeId "report-71"^^xsd:string ;
-    ns4:reportingSystem <http://placeholder.org#d2099b50-2952-4844-87bc-42b1425405db> ;
-    ns4:startingActivity <http://placeholder.org#8ca0dea7-aca2-47fa-8c9a-9b77671d205e> .
+    ns1:endingActivity <http://placeholder.org#e101de5f-3b15-44c9-a0e0-637a229af10a> ;
+    ns1:nativeId "report-71"^^xsd:string ;
+    ns1:reportingSystem <http://placeholder.org#efab28bf-1324-4731-ae60-879d021921a2> ;
+    ns1:startingActivity <http://placeholder.org#1a0cbe4f-a9d8-44ee-abba-f9288443cc46> .
 
-<http://placeholder.org#861f4060-e32f-495c-afee-568ec31e4516> a <http://www.w3.org/2002/07/owl#Class>,
-        ns2:Activity ;
+<http://placeholder.org#77a1f3fd-46da-477a-9b77-934550833f07> a <http://www.w3.org/2002/07/owl#Class>,
+        ns3:Activity ;
     rdfs:label "Activity 2"^^xsd:string ;
     rdfs:comment "A test Activity"^^xsd:string ;
-    ns2:endedAtTime "2014-06-25T13:00:00"^^xsd:dateTime ;
-    ns2:generated <http://web3-wron:8080/water/thredds/somefile.nc> ;
-    ns2:startedAtTime "2014-06-25T12:13:24"^^xsd:dateTime ;
-    ns2:used <http://placeholder.org#e941aee3-6760-4611-97ab-bf023b13e9bc>,
-        <http://placeholder.org#ff7d558d-8248-4d12-a46d-4010d9244b8d> ;
-    ns2:wasAssociatedWith <http://placeholder.org#1dfb3ed1-0eb8-4763-adb8-abbc8301fbc9> .
+    ns3:endedAtTime "2014-06-25T13:00:00"^^xsd:dateTime ;
+    ns3:generated <http://web3-wron:8080/water/thredds/somefile.nc> ;
+    ns3:startedAtTime "2014-06-25T12:13:24"^^xsd:dateTime ;
+    ns3:used <http://placeholder.org#481eeb80-ac48-4ea6-8229-a746631f8c2b>,
+        <http://placeholder.org#ca05139c-1df4-470b-8653-051f89f9cd57> ;
+    ns3:wasAssociatedWith <http://placeholder.org#46ea3ce3-430d-4e63-bc00-de02f5414c08> .
 
 <http://example.org.au/id/thing/dataset/3> a <http://www.w3.org/2002/07/owl#Class>,
-        ns2:Entity ;
+        ns3:Entity ;
     rdfs:label "Input 3"^^xsd:string ;
-    ns3:created "2015-09-30T00:23:56"^^xsd:dateTime ;
-    ns2:creator <http://placeholder.org#34f640d7-5538-4421-a143-02ee37df2226> .
+    ns2:created "2015-09-30T11:32:32"^^xsd:dateTime ;
+    ns3:creator <http://placeholder.org#b70e9d43-a8e3-4c02-aa2a-679ba45d8bb1> .
 
-<http://placeholder.org#420dc90d-2c9d-46f7-97ee-bc6bce1dd65c> a <http://www.w3.org/2002/07/owl#Class>,
-        ns2:Entity ;
-    rdfs:label "Input 2"^^xsd:string ;
-    ns3:created "2014-06-25T12:00:02"^^xsd:dateTime ;
-    ns3:licence "None"^^xsd:anyUri ;
-    rdfs:comment "The Entity, 02"^^xsd:string ;
-    ns2:wasAttributedTo <http://placeholder.org#34f640d7-5538-4421-a143-02ee37df2226> .
-
-<http://placeholder.org#4c82c8f2-87ad-44fd-ab8f-070553b9b49e> a <http://www.w3.org/2002/07/owl#Class>,
-        ns2:Activity ;
-    rdfs:label "Activity 3"^^xsd:string ;
-    rdfs:comment "A test Activity"^^xsd:string ;
-    ns2:endedAtTime "2014-06-25T13:05:00"^^xsd:dateTime ;
-    ns2:generated <http://placeholder.org#e1bf0733-6ff8-4b33-a6f3-15e058a69b70> ;
-    ns2:startedAtTime "2014-06-25T13:00:01"^^xsd:dateTime ;
-    ns2:used <http://placeholder.org#502dc010-bb9c-4f35-8cb3-eb69e207d762> ;
-    ns2:wasAssociatedWith <http://placeholder.org#1dfb3ed1-0eb8-4763-adb8-abbc8301fbc9> .
-
-<http://placeholder.org#502dc010-bb9c-4f35-8cb3-eb69e207d762> a <http://www.w3.org/2002/07/owl#Class>,
-        ns2:Entity ;
-    rdfs:label "Thing 2"^^xsd:string ;
-    ns3:created "2015-09-30T00:23:56"^^xsd:dateTime .
-
-<http://placeholder.org#8ca0dea7-aca2-47fa-8c9a-9b77671d205e> a <http://www.w3.org/2002/07/owl#Class>,
-        ns2:Activity ;
+<http://placeholder.org#1a0cbe4f-a9d8-44ee-abba-f9288443cc46> a <http://www.w3.org/2002/07/owl#Class>,
+        ns3:Activity ;
     rdfs:label "Activity 1"^^xsd:string ;
     rdfs:comment "A test Activity"^^xsd:string ;
-    ns2:endedAtTime "2014-06-25T12:13:24"^^xsd:dateTime ;
-    ns2:startedAtTime "2014-06-25T12:13:14"^^xsd:dateTime ;
-    ns2:used <http://example.org.au/id/thing/dataset/3>,
-        <http://placeholder.org#420dc90d-2c9d-46f7-97ee-bc6bce1dd65c>,
+    ns3:endedAtTime "2014-06-25T12:13:24"^^xsd:dateTime ;
+    ns3:startedAtTime "2014-06-25T12:13:14"^^xsd:dateTime ;
+    ns3:used <http://example.org.au/id/thing/dataset/3>,
+        <http://placeholder.org#238d126d-3287-4983-80f5-1784bd1081e6>,
         <http://web3-wron:8080/water/thredds/fileServer/Awra/AwraL/355/Daily/Ss/2012/20120923_Ss> ;
-    ns2:wasAssociatedWith <http://placeholder.org#1dfb3ed1-0eb8-4763-adb8-abbc8301fbc9> .
+    ns3:wasAssociatedWith <http://placeholder.org#46ea3ce3-430d-4e63-bc00-de02f5414c08> .
 
-<http://placeholder.org#d2099b50-2952-4844-87bc-42b1425405db> a ns4:ReportingSystem,
-        <http://www.w3.org/2002/07/owl#Class>,
-        ns2:Agent ;
-    rdfs:label "Workflow System Z"^^xsd:string ;
-    ns2:actedOnBehalfOf <http://placeholder.org#1dfb3ed1-0eb8-4763-adb8-abbc8301fbc9> .
+<http://placeholder.org#238d126d-3287-4983-80f5-1784bd1081e6> a <http://www.w3.org/2002/07/owl#Class>,
+        ns3:Entity ;
+    rdfs:label "Input 2"^^xsd:string ;
+    ns2:created "2014-06-25T12:00:02"^^xsd:dateTime ;
+    ns2:licence "None"^^xsd:anyUri ;
+    rdfs:comment "The Entity, 02"^^xsd:string ;
+    ns3:wasAttributedTo <http://placeholder.org#b70e9d43-a8e3-4c02-aa2a-679ba45d8bb1> .
 
-<http://placeholder.org#e1bf0733-6ff8-4b33-a6f3-15e058a69b70> a <http://www.w3.org/2002/07/owl#Class>,
-        ns2:Entity ;
-    rdfs:label "Output Number"^^xsd:string ;
-    ns3:created "2015-09-30T00:23:56"^^xsd:dateTime ;
-    ns2:value 42 .
-
-<http://placeholder.org#e941aee3-6760-4611-97ab-bf023b13e9bc> a <http://www.w3.org/2002/07/owl#Class>,
-        ns2:Entity ;
-    rdfs:label "Band Selector"^^xsd:string ;
-    ns3:created "2015-09-30T00:23:56"^^xsd:dateTime ;
-    ns2:value "Band_3,Band_4,Band_7"^^xsd:string .
-
-<http://placeholder.org#ff7d558d-8248-4d12-a46d-4010d9244b8d> a <http://www.w3.org/2002/07/owl#Class>,
-        ns2:Entity ;
+<http://placeholder.org#481eeb80-ac48-4ea6-8229-a746631f8c2b> a <http://www.w3.org/2002/07/owl#Class>,
+        ns3:Entity ;
     rdfs:label "Thing 1"^^xsd:string ;
-    ns3:created "2015-09-30T00:23:56"^^xsd:dateTime ;
-    ns2:wasAttributedTo <http://placeholder.org#1dfb3ed1-0eb8-4763-adb8-abbc8301fbc9> .
+    ns2:created "2015-09-30T11:32:32"^^xsd:dateTime ;
+    ns3:wasAttributedTo <http://placeholder.org#46ea3ce3-430d-4e63-bc00-de02f5414c08> .
+
+<http://placeholder.org#61693fc6-639a-4925-8bbb-928bc5e2ebdc> a <http://www.w3.org/2002/07/owl#Class>,
+        ns3:Entity ;
+    rdfs:label "Thing 2"^^xsd:string ;
+    ns2:created "2015-09-30T11:32:32"^^xsd:dateTime .
+
+<http://placeholder.org#8facadcf-ebb5-4dce-a203-8367ca479ca1> a <http://www.w3.org/2002/07/owl#Class>,
+        ns3:Entity ;
+    rdfs:label "Output Number"^^xsd:string ;
+    ns2:created "2015-09-30T11:32:32"^^xsd:dateTime ;
+    ns3:value 42 .
+
+<http://placeholder.org#ca05139c-1df4-470b-8653-051f89f9cd57> a <http://www.w3.org/2002/07/owl#Class>,
+        ns3:Entity ;
+    rdfs:label "Band Selector"^^xsd:string ;
+    ns2:created "2015-09-30T11:32:32"^^xsd:dateTime ;
+    ns3:value "Band_3,Band_4,Band_7"^^xsd:string .
+
+<http://placeholder.org#e101de5f-3b15-44c9-a0e0-637a229af10a> a <http://www.w3.org/2002/07/owl#Class>,
+        ns3:Activity ;
+    rdfs:label "Activity 3"^^xsd:string ;
+    rdfs:comment "A test Activity"^^xsd:string ;
+    ns3:endedAtTime "2014-06-25T13:05:00"^^xsd:dateTime ;
+    ns3:generated <http://placeholder.org#8facadcf-ebb5-4dce-a203-8367ca479ca1> ;
+    ns3:startedAtTime "2014-06-25T13:00:01"^^xsd:dateTime ;
+    ns3:used <http://placeholder.org#61693fc6-639a-4925-8bbb-928bc5e2ebdc> ;
+    ns3:wasAssociatedWith <http://placeholder.org#46ea3ce3-430d-4e63-bc00-de02f5414c08> .
+
+<http://placeholder.org#efab28bf-1324-4731-ae60-879d021921a2> a ns1:ReportingSystem,
+        <http://www.w3.org/2002/07/owl#Class>,
+        ns3:Agent ;
+    rdfs:label "Workflow System Z"^^xsd:string ;
+    ns3:actedOnBehalfOf <http://placeholder.org#46ea3ce3-430d-4e63-bc00-de02f5414c08> .
 
 <http://web3-wron:8080/water/thredds/fileServer/Awra/AwraL/355/Daily/Ss/2012/20120923_Ss> a <http://www.w3.org/2002/07/owl#Class>,
-        ns2:Entity ;
+        ns3:Entity ;
     rdfs:label "x"^^xsd:string ;
-    ns3:created "2015-09-30T00:23:56"^^xsd:dateTime .
+    ns2:created "2015-09-30T11:32:32"^^xsd:dateTime .
 
 <http://web3-wron:8080/water/thredds/somefile.nc> a <http://www.w3.org/2002/07/owl#Class>,
-        ns2:Entity ;
+        ns3:Entity ;
     rdfs:label "Output Data"^^xsd:string ;
-    ns3:created "2014-06-25T12:13:01"^^xsd:dateTime ;
-    ns3:licence "None"^^xsd:anyUri ;
+    ns2:created "2014-06-25T12:13:01"^^xsd:dateTime ;
+    ns2:licence "None"^^xsd:anyUri ;
     rdfs:comment "The Entity, 03"^^xsd:string ;
-    ns1:downloadURL "http://web3-wron:8080/water/thredds/somefile.nc"^^xsd:anyUri ;
-    ns2:creator <http://placeholder.org#1dfb3ed1-0eb8-4763-adb8-abbc8301fbc9> ;
-    ns2:wasAttributedTo <http://placeholder.org#34f640d7-5538-4421-a143-02ee37df2226> .
+    ns4:downloadURL "http://web3-wron:8080/water/thredds/somefile.nc"^^xsd:anyUri ;
+    ns3:creator <http://placeholder.org#46ea3ce3-430d-4e63-bc00-de02f5414c08> ;
+    ns3:wasAttributedTo <http://placeholder.org#b70e9d43-a8e3-4c02-aa2a-679ba45d8bb1> .
 
-<http://placeholder.org#34f640d7-5538-4421-a143-02ee37df2226> a <http://www.w3.org/2002/07/owl#Class>,
-        ns2:Agent ;
+<http://placeholder.org#b70e9d43-a8e3-4c02-aa2a-679ba45d8bb1> a <http://www.w3.org/2002/07/owl#Class>,
+        ns3:Agent ;
     rdfs:label "Agent Orange"^^xsd:string .
 
-<http://placeholder.org#1dfb3ed1-0eb8-4763-adb8-abbc8301fbc9> a <http://www.w3.org/2002/07/owl#Class>,
-        ns2:Agent ;
+<http://placeholder.org#46ea3ce3-430d-4e63-bc00-de02f5414c08> a <http://www.w3.org/2002/07/owl#Class>,
+        ns3:Agent ;
     rdfs:label "Agent X"^^xsd:string ;
-    ns2:actedOnBehalfOf <http://placeholder.org#34f640d7-5538-4421-a143-02ee37df2226> .
+    ns3:actedOnBehalfOf <http://placeholder.org#b70e9d43-a8e3-4c02-aa2a-679ba45d8bb1> .
 

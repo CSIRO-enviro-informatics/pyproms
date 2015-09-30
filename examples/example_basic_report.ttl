@@ -5,28 +5,29 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<http://placeholder.org#7dcef582-ddee-479b-84a4-8df7a0e033bc> a ns2:BasicReport,
+<http://placeholder.org#217c5a36-9f6f-41f9-a53b-63a595f6cd97> a ns2:BasicReport,
         ns2:Report,
         <http://www.w3.org/2002/07/owl#Class> ;
     rdfs:label "Test Basic Report PyPROMS"^^xsd:string ;
+    ns2:endingActivity <http://placeholder.org#c982f4ea-ca14-4ec2-84fa-88c0d30a2e3f> ;
     ns2:nativeId "report-71"^^xsd:string ;
-    ns2:reportingSystem <http://placeholder.org#4dd21602-974d-4d56-aee7-46a77096df9a> ;
-    ns2:startingActivity <http://placeholder.org#2f340ed8-e680-49c8-b7f0-5d50a98eace6> .
+    ns2:reportingSystem <http://placeholder.org#815f7376-c37d-4a14-8f4a-25703887dbf8> ;
+    ns2:startingActivity <http://placeholder.org#c982f4ea-ca14-4ec2-84fa-88c0d30a2e3f> .
 
-<http://placeholder.org#2f340ed8-e680-49c8-b7f0-5d50a98eace6> a <http://www.w3.org/2002/07/owl#Class>,
+<http://placeholder.org#815f7376-c37d-4a14-8f4a-25703887dbf8> a ns2:ReportingSystem,
+        <http://www.w3.org/2002/07/owl#Class>,
+        ns1:Agent ;
+    rdfs:label "Workflow System Z"^^xsd:string .
+
+<http://placeholder.org#995dd04c-36ea-4fb6-83de-de1537e977af> a <http://www.w3.org/2002/07/owl#Class>,
+        ns1:Agent ;
+    rdfs:label "Agent X"^^xsd:string .
+
+<http://placeholder.org#c982f4ea-ca14-4ec2-84fa-88c0d30a2e3f> a <http://www.w3.org/2002/07/owl#Class>,
         ns1:Activity ;
     rdfs:label "Test Activity"^^xsd:string ;
     rdfs:comment "A test Activity"^^xsd:string ;
     ns1:endedAtTime "2014-06-25T12:13:24"^^xsd:dateTime ;
     ns1:startedAtTime "2014-06-25T12:13:14"^^xsd:dateTime ;
-    ns1:wasAssociatedWith <http://placeholder.org#a1516377-31a0-46e8-b542-fd950ccd67b8> .
-
-<http://placeholder.org#4dd21602-974d-4d56-aee7-46a77096df9a> a ns2:ReportingSystem,
-        <http://www.w3.org/2002/07/owl#Class>,
-        ns1:Agent ;
-    rdfs:label "Workflow System Z"^^xsd:string .
-
-<http://placeholder.org#a1516377-31a0-46e8-b542-fd950ccd67b8> a <http://www.w3.org/2002/07/owl#Class>,
-        ns1:Agent ;
-    rdfs:label "Agent X"^^xsd:string .
+    ns1:wasAssociatedWith <http://placeholder.org#995dd04c-36ea-4fb6-83de-de1537e977af> .
 

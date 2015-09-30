@@ -41,10 +41,9 @@ class OwlClass(object):
                     RDF.type,
                     OWL.Class))
 
-        if self.uri:
-            self.g.add((URIRef(self.uri),
-                        RDFS.label,
-                        Literal(self.label, datatype=XSD.string)))
+        self.g.add((URIRef(self.uri),
+                    RDFS.label,
+                    Literal(self.label, datatype=XSD.string)))
 
         if self.comment:
             self.g.add((URIRef(self.uri),
