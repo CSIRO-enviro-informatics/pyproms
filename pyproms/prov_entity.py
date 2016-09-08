@@ -127,7 +127,7 @@ class ProvEntity(OwlClass):
         if self.licence:
             self.g.add((URIRef(self.uri),
                         DC.licence,
-                        Literal(self.metadataUri, datatype=XSD.anyUri)))
+                        Literal(self.licence, datatype=XSD.string)))
 
         if self.metadataUri:
             self.g.add((URIRef(self.uri),
