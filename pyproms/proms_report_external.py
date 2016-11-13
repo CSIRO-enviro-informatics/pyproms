@@ -11,16 +11,18 @@ class PromsExternalReport(PromsReport):
     """
     def __init__(self,
                  label,
-                 reportingSystem,
+                 wasReportedBy,
                  nativeId,
                  reportActivity,
+                 generatedAtTime,
                  comment=None):
         
         PromsReport.__init__(self,
                              label,
-                             reportingSystem,
+                             wasReportedBy,
                              nativeId,
                              reportActivity,
+                             generatedAtTime,
                              comment)
 
     def make_graph(self):
@@ -35,6 +37,11 @@ class PromsExternalReport(PromsReport):
 
         # The only thing we need to do here is to redefine the Report class as BasicReport.
         # There are no additional properties as the input & output Entities are part of the Activity
-        self.g.add((URIRef(self.uri),
-                    RDF.type,
-                    PROMS.ExternalReport))
+        self.g.remove((
+            URIRef(self.uri),
+            RDF.type,
+            PROMS.Report))
+        self.g.add((
+            URIRef(self.uri),
+            RDF.type,
+            PROMS.ExternalReport))

@@ -1,5 +1,5 @@
 from rdflib import URIRef, Namespace, Literal
-from rdflib.namespace import RDF
+from rdflib.namespace import RDF, OWL
 import datetime
 from pyproms.owlclass import OwlClass
 from pyproms.prov_entity import ProvEntity
@@ -14,8 +14,8 @@ class ProvActivity(OwlClass):
                  label,
                  startedAtTime,
                  endedAtTime,
-                 uri=None,
                  wasAssociatedWith=None,
+                 uri=None,
                  comment=None,
                  used_entities=None,
                  generated_entities=None,
@@ -23,60 +23,60 @@ class ProvActivity(OwlClass):
 
         OwlClass.__init__(self, label, uri, comment)
 
-        self.set_startedAtTime(startedAtTime)
-        self.set_endedAtTime(endedAtTime)
+        self.__set_startedAtTime(startedAtTime)
+        self.__set_endedAtTime(endedAtTime)
 
         if wasAssociatedWith:
-            self.set_wasAssociatedWith(wasAssociatedWith)
+            self.__set_wasAssociatedWith(wasAssociatedWith)
         else:
             self.wasAssociatedWith = None
 
         if used_entities:
-            self.set_used_entities(used_entities)
+            self.__set_used_entities(used_entities)
         else:
             self.used_entities = None
 
         if generated_entities:
-            self.set_generated_entities(generated_entities)
+            self.__set_generated_entities(generated_entities)
         else:
             self.generated_entities = None
 
         if wasInformedBy:
-            self.set_wasInformedBy(wasInformedBy)
+            self.__set_wasInformedBy(wasInformedBy)
         else:
             self.wasInformedBy = None
 
-    def set_wasAssociatedWith(self, wasAssociatedWith):
+    def __set_wasAssociatedWith(self, wasAssociatedWith):
         if type(wasAssociatedWith) is ProvAgent:
             self.wasAssociatedWith = wasAssociatedWith
         else:
             raise TypeError('wasAssociatedWith must be an Agent, not a %s' % type(wasAssociatedWith))
 
-    def set_startedAtTime(self, startedAtTime):
+    def __set_startedAtTime(self, startedAtTime):
         if type(startedAtTime) is datetime.datetime:
             self.startedAtTime = startedAtTime
         else:
             raise TypeError('startedAtTime must be a datetime.datetime, not a %s' % type(startedAtTime))
 
-    def set_endedAtTime(self, endedAtTime):
+    def __set_endedAtTime(self, endedAtTime):
         if type(endedAtTime) is datetime.datetime:
             self.endedAtTime = endedAtTime
         else:
             raise TypeError('endedAtTime must be a datetime.datetime, not a %s' % type(endedAtTime))
 
-    def set_used_entities(self, used_entities):
+    def __set_used_entities(self, used_entities):
         if all(isinstance(n, ProvEntity) for n in used_entities):
             self.used_entities = used_entities
         else:
             raise TypeError('used_entities must be a list of Entity objects')
 
-    def set_generated_entities(self, generated_entities):
+    def __set_generated_entities(self, generated_entities):
         if all(isinstance(n, ProvEntity) for n in generated_entities):
             self.generated_entities = generated_entities
         else:
             raise TypeError('used_entities must be a list of Entity objects')
 
-    def set_wasInformedBy(self, wasInformedBy):
+    def __set_wasInformedBy(self, wasInformedBy):
         if type(wasInformedBy) is ProvActivity:
             self.wasInformedBy = wasInformedBy
         else:
@@ -93,6 +93,10 @@ class ProvActivity(OwlClass):
         XSD = Namespace('http://www.w3.org/2001/XMLSchema#')
         PROV = Namespace('http://www.w3.org/ns/prov#')
 
+        self.g.remove((
+            URIRef(self.uri),
+            RDF.type,
+            OWL.Class))
         self.g.add((URIRef(self.uri),
                     RDF.type,
                     PROV.Activity))
@@ -115,18 +119,18 @@ class ProvActivity(OwlClass):
 
         if self.used_entities:
             for used_entity in self.used_entities:
-                #add the Entity to the graph
+                # add the Entity to the graph
                 self.g = self.g + used_entity.get_graph()
-                #associate the Entity with the Activity
+                # associate the Entity with the Activity
                 self.g.add((URIRef(self.uri),
                             PROV.used,
                             URIRef(used_entity.uri)))
 
         if self.generated_entities:
             for generated_entity in self.generated_entities:
-                #add the Entity to the graph
+                # add the Entity to the graph
                 self.g = self.g + generated_entity.get_graph()
-                #associate the Entity with the Activity
+                # associate the Entity with the Activity
                 self.g.add((URIRef(self.uri),
                             PROV.generated,
                             URIRef(generated_entity.uri)))

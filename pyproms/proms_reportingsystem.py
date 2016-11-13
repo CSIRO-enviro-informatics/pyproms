@@ -1,5 +1,5 @@
 from rdflib import URIRef, Namespace
-from rdflib.namespace import RDF
+from rdflib.namespace import RDF, OWL
 from pyproms.prov_agent import ProvAgent
 
 
@@ -12,23 +12,14 @@ class PromsReportingSystem(ProvAgent):
                  label,
                  uri=None,
                  comment=None,
-                 name=None,
                  actedOnBehalfOf=None):
-
-        # these variables are not allowed for a ReportingSystem specialisation of prov:Agent
-        givenName = None
-        familyName = None
-        mbox = None
 
         ProvAgent.__init__(self,
                            label,
                            uri=uri,
                            comment=comment,
-                           actedOnBehalfOf=actedOnBehalfOf,
-                           name=name,
-                           givenName=givenName,
-                           familyName=familyName,
-                           mbox=mbox)
+                           actedOnBehalfOf=actedOnBehalfOf
+                           )
 
     def make_graph(self):
         """
@@ -38,13 +29,14 @@ class PromsReportingSystem(ProvAgent):
         """
         ProvAgent.make_graph(self)
 
-        PROV = Namespace('http://www.w3.org/ns/prov#')
         PROMS = Namespace('http://promsns.org/def/proms#')
+        PROV = Namespace('http://www.w3.org/ns/prov#')
 
-        self.g.add((URIRef(self.uri),
-                    RDF.type,
-                    PROV.Agent))
-
-        self.g.add((URIRef(self.uri),
-                    RDF.type,
-                    PROMS.ReportingSystem))
+        self.g.remove((
+            URIRef(self.uri),
+            RDF.type,
+            PROV.Agent))
+        self.g.add((
+            URIRef(self.uri),
+            RDF.type,
+            PROMS.ReportingSystem))

@@ -1,9 +1,8 @@
 from rdflib import URIRef, Namespace
-from rdflib.namespace import RDF
+from rdflib.namespace import RDF, OWL
 from pyproms.proms_report import PromsReport
 from pyproms.prov_activity import ProvActivity
-from pyproms.proms_activity import PromsActivity
-from proms_error import PromsDataModelError
+from proms_error import PromsOntologyError
 
 
 class PromsInternalReport(PromsReport):
@@ -14,29 +13,31 @@ class PromsInternalReport(PromsReport):
     """
     def __init__(self,
                  label,
-                 reportingSystem,
+                 wasReportedBy,
                  nativeId,
                  startingActivity,
                  endingActivity,
                  all_activities,
+                 generatedAtTime,
                  comment=None):
         
         PromsReport.__init__(self,
                              label,
-                             reportingSystem,
+                             wasReportedBy,
                              nativeId,
                              startingActivity,
+                             generatedAtTime,
                              comment)
 
         self.__set_endingActivity(startingActivity, endingActivity)
         self.__set_all_activities(all_activities)
 
     def __set_endingActivity(self, startingActivity, endingActivity):
-        if (type(endingActivity) is ProvActivity or
-            type(endingActivity) is PromsActivity):
+        if type(endingActivity) is ProvActivity:
             if startingActivity is not None:
                 if endingActivity == startingActivity:
-                    raise PromsDataModelError('For an Internal Report, the ending activity and starting activity must not be the same')
+                    raise PromsOntologyError(
+                        'For an Internal Report, the ending activity and starting activity must not be the same')
             self.endingActivity = endingActivity
         else:
             raise TypeError('endingActivity must be an Agent, not a %s' % type(endingActivity))
@@ -57,9 +58,14 @@ class PromsInternalReport(PromsReport):
 
         PROMS = Namespace('http://promsns.org/def/proms#')
 
-        self.g.add((URIRef(self.uri),
-                    RDF.type,
-                    PROMS.InternalReport))
+        self.g.remove((
+            URIRef(self.uri),
+            RDF.type,
+            PROMS.Report))
+        self.g.add((
+            URIRef(self.uri),
+            RDF.type,
+            PROMS.InternalReport))
 
         for activity in self.all_activities:
             # add the Activity to the graph
@@ -71,4 +77,3 @@ class PromsInternalReport(PromsReport):
         self.g.add((URIRef(self.uri),
                     PROMS.endingActivity,
                     URIRef(self.endingActivity.uri)))
-

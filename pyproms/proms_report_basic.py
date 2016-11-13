@@ -11,16 +11,18 @@ class PromsBasicReport(PromsReport):
     """
     def __init__(self,
                  label,
-                 reportingSystem,
+                 wasReportedBy,
                  nativeId,
                  reportActivity,
+                 generatedAtTime,
                  comment=None):
 
         PromsReport.__init__(self,
                              label,
-                             reportingSystem,
+                             wasReportedBy,
                              nativeId,
                              reportActivity,
+                             generatedAtTime,
                              comment)
 
     def make_graph(self):
@@ -35,6 +37,11 @@ class PromsBasicReport(PromsReport):
 
         # The only thing we need to do here is to redefine the Report class as BasicReport.
         # There are no additional properties
-        self.g.add((URIRef(self.uri),
-                    RDF.type,
-                    PROMS.BasicReport))
+        self.g.remove((
+            URIRef(self.uri),
+            RDF.type,
+            PROMS.Report))
+        self.g.add((
+            URIRef(self.uri),
+            RDF.type,
+            PROMS.BasicReport))

@@ -1,92 +1,52 @@
-import datetime
-from rdflib import URIRef, Namespace, Graph, Literal, BNode, compare, serializer
-from rdflib.namespace import RDF
+from rdflib import URIRef, Namespace, Graph, Literal
+from rdflib.namespace import RDF, RDFS, XSD
 from pyproms.prov_entity import ProvEntity
-from pyproms.proms_confidentialitystatus import ConfidentialityStatus
 
 
-def test_entity_defined_elsewhere():
-    entity_uri = 'http://promsns.org/demo/abc-123'
-    #create an Entity by hand for comparison and make graph
+def test_entity_defined_elsewhere_minimal():
+    # create an Entity graph by hand
     g = Graph()
     PROV = Namespace('http://www.w3.org/ns/prov#')
-    g.add((URIRef(entity_uri), RDF.type, PROV.Entity))
 
-    #instantiate Entity & get_graph
-    g2 = Graph()
-    e = ProvEntity(entity_uri, None, None, None, None,
-                      None, None, None, None)
-
-    g2 = e.get_graph()
-
-    #compare
-    iso1 = compare.to_isomorphic(g)
-    iso2 = compare.to_isomorphic(g2)
-    in_both, in_first, in_second = compare.graph_diff(iso1, iso2)
-
-    #print str(len(in_both)) + ', ' + str(len(in_first)) + ', ' + str(len(
-    # in_second))
-
-    assert len(in_first) == 0
-    assert len(in_second) == 0
-
-
-def test_entity_defined_here():
-    #create an Entity by hand for comparison and make graph
-    entity_uri = URIRef(BNode())
-    title = "Test Entity"
-    description = "This is a tests Entity"
-    created = datetime.datetime.strptime("2014-06-23T10:15:16",
-                                         "%Y-%m-%dT%H:%M:%S")
-    creator = 'http://data.bioregionalassessments.gov.au/person/car587'
-    confidentialityStatus = ConfidentialityStatus.PublicDomain
-    metadataUri = 'http://example.com/a_uri'
-    dataUri = 'http://example.com/another_uri'
-
-    g = Graph()
-    PROV = Namespace('http://www.w3.org/ns/prov#')
-    XSD = Namespace('http://www.w3.org/2001/XMLSchema#')
-    PROMS = Namespace('http://promsns.org/def/proms#')
-    DC = Namespace('http://purl.org/dc/elements/1.1/')
+    entity_label_string = 'Test Entity'
+    entity_label = Literal(entity_label_string, datatype=XSD.string)
+    entity_uri_string = 'http://promsns.org/demo/abc-123'
+    entity_uri = URIRef(entity_uri_string)
 
     g.add((entity_uri, RDF.type, PROV.Entity))
-    g.add((entity_uri, DC.title, Literal(title, datatype=XSD.string)))
-    g.add((entity_uri, DC.description, Literal(description,
-                                               datatype=XSD.string)))
-    g.add((entity_uri, DC.created,
-           Literal(created.strftime("%Y-%m-%dT%H:%M:%S"),
-                   datatype=XSD.dateTime)))
-    g.add((entity_uri, DC.creator, Literal(creator, datatype=XSD.anyUri)))
-    g.add((entity_uri,
-           DC.license, Literal(license, datatype=XSD.anyUri)))
-    g.add((entity_uri, PROMS.confidentialityStatus,
-           Literal(confidentialityStatus, datatype=XSD.anyUri)))
-    g.add((entity_uri, PROMS.metadataUri, Literal(
-        metadataUri, datatype=XSD.anyUri)))
-    g.add((entity_uri, PROMS.dataUri, Literal(
-        dataUri, datatype=XSD.anyUri)))
+    g.add((entity_uri, RDFS.label, entity_label))
 
-    #instantiate Entity & get_graph
-    e = ProvEntity(entity_uri, title, description, created, creator,
-                      license, confidentialityStatus, metadataUri, dataUri)
-
+    # create an Entity via toolkit, get its graph
+    e = ProvEntity(entity_label_string, entity_uri_string)
     g2 = e.get_graph()
 
-    #compare
-    iso1 = compare.to_isomorphic(g)
-    iso2 = compare.to_isomorphic(g2)
-    in_both, in_first, in_second = compare.graph_diff(iso1, iso2)
-
-    print(str(len(in_both)) + ', ' + str(len(in_first)) + ', ' + str(len(
-        in_second)))
-
-    print(in_first.serialize(format='n3'))
-    print(in_second.serialize(format='n3'))
-    print(in_both.serialize(format='n3'))
-
-    assert len(in_first) == 0
-    assert len(in_second) == 0
+    assert g.isomorphic(g2)
 
 
-if __name__ == "__main__":
-    pass
+def test_entity_defined_here_minmal():
+    # create an Entity graph by hand
+    PROV = Namespace('http://www.w3.org/ns/prov#')
+    XSD = Namespace('http://www.w3.org/2001/XMLSchema#')
+    g = Graph()
+
+    entity_label_string = 'Test Entity'
+    entity_label = Literal(entity_label_string, datatype=XSD.string)
+    entity_uri_string = 'http://promsns.org/demo/abc-123'
+    entity_uri = URIRef(entity_uri_string)
+    value = Literal(42, datatype=XSD.integer)
+
+    g.add((entity_uri, RDF.type, PROV.Entity))
+    g.add((entity_uri, RDFS.label, entity_label))
+    g.add((entity_uri, PROV.value, value))
+
+    # create an Entity via toolkit, get its graph
+    e = ProvEntity(entity_label_string, entity_uri_string, None, None, 42) # TODO: replace fixed URI with a BNode
+    g2 = e.get_graph()
+
+    assert g.isomorphic(g2)
+
+
+if __name__ == '__main__':
+    test_entity_defined_elsewhere_minimal()
+    test_entity_defined_here_minmal()
+
