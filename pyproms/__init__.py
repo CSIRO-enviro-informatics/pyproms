@@ -5,3 +5,4 @@ from pyproms.proms_reportingsystem import PromsReportingSystem
 from pyproms.proms_report_basic import PromsBasicReport
 from pyproms.proms_report_external import PromsExternalReport
 from pyproms.proms_report_internal import PromsInternalReport
+from pyproms.report_sender import ReportSender
