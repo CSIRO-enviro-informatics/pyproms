@@ -1,65 +1,47 @@
 @prefix ns1: <http://promsns.org/def/proms#> .
-@prefix ns2: <http://purl.org/dc/elements/1.1/> .
-@prefix ns3: <http://www.w3.org/ns/prov#> .
-@prefix ns4: <http://www.w3.org/ns/dcat#> .
+@prefix ns2: <http://www.w3.org/ns/prov#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<http://placeholder.org#78298873-671a-46d2-a78a-23919e2386cd> a ns1:ExternalReport,
-        ns1:Report,
-        <http://www.w3.org/2002/07/owl#Class> ;
+<http://placeholder.org#ca92e49b-151f-4406-9739-4c9c9ed7c986> a ns1:ExternalReport ;
     rdfs:label "Test External Report PyPROMS"^^xsd:string ;
-    ns1:endingActivity <http://placeholder.org#dd4e319e-b13b-4f9d-8e90-d7d41814d127> ;
+    ns1:endingActivity <http://placeholder.org#f28f715b-ff74-4a94-bddc-dec4fb4ba909> ;
     ns1:nativeId "report-71"^^xsd:string ;
-    ns1:reportingSystem <http://placeholder.org#a0319c48-ae5d-4b58-ad45-ea550a1189f2> ;
-    ns1:startingActivity <http://placeholder.org#dd4e319e-b13b-4f9d-8e90-d7d41814d127> .
+    ns1:startingActivity <http://placeholder.org#f28f715b-ff74-4a94-bddc-dec4fb4ba909> ;
+    ns1:wasReportedBy <http://placeholder.org#5e6a88c2-0319-497b-8433-9ff5b1e80c49> ;
+    ns2:generatedAtTime "2014-06-25T12:13:34"^^xsd:dateTime .
 
-<http://placeholder.org#36ba06a3-ee2a-4541-8320-357d365a2bec> a <http://www.w3.org/2002/07/owl#Class>,
-        ns3:Entity ;
+<http://pid.geoscience.gov.au/dataset/12> a ns2:Entity ;
+    rdfs:label "Dataset 12"^^xsd:string .
+
+<http://placeholder.org#0714b17b-ae3e-4fbb-9e99-9d421dd9e1bb> a ns2:Entity ;
     rdfs:label "Input 02"^^xsd:string ;
-    ns2:created "2014-06-25T12:00:02"^^xsd:dateTime ;
-    ns2:licence "None"^^xsd:anyUri ;
     rdfs:comment "The Entity, 02"^^xsd:string ;
-    ns3:wasAttributedTo <http://placeholder.org#73b52bc4-d2c8-409a-b8fc-f5432e3c23e3> .
+    ns2:wasAttributedTo <http://placeholder.org#8b73b26c-b8a2-40b5-94fe-e62f108f0671> .
 
-<http://placeholder.org#a0319c48-ae5d-4b58-ad45-ea550a1189f2> a ns1:ReportingSystem,
-        <http://www.w3.org/2002/07/owl#Class>,
-        ns3:Agent ;
+<http://placeholder.org#5e6a88c2-0319-497b-8433-9ff5b1e80c49> a ns1:ReportingSystem ;
     rdfs:label "Workflow System Z"^^xsd:string .
 
-<http://web3-wron:8080/water/thredds/fileServer/Awra/AwraL/355/Daily/Ss/2012/20120923_Ss> a <http://www.w3.org/2002/07/owl#Class>,
-        ns3:Entity ;
-    rdfs:label ""^^xsd:string ;
-    ns2:created "2015-09-30T11:13:09"^^xsd:dateTime .
-
-<http://web3-wron:8080/water/thredds/somefile.nc> a <http://www.w3.org/2002/07/owl#Class>,
-        ns3:Entity ;
-    rdfs:label "Output Data"^^xsd:string ;
-    ns2:created "2014-06-25T12:13:01"^^xsd:dateTime ;
-    ns2:licence "None"^^xsd:anyUri ;
-    rdfs:comment "The Entity, 03"^^xsd:string ;
-    ns4:downloadURL "http://web3-wron:8080/water/thredds/somefile.nc"^^xsd:anyUri ;
-    ns3:creator <http://placeholder.org#9016df7d-5311-4e66-938a-d497ce5bc4c4> ;
-    ns3:wasAttributedTo <http://placeholder.org#73b52bc4-d2c8-409a-b8fc-f5432e3c23e3> .
-
-<http://placeholder.org#73b52bc4-d2c8-409a-b8fc-f5432e3c23e3> a <http://www.w3.org/2002/07/owl#Class>,
-        ns3:Agent ;
-    rdfs:label "Agent Orange"^^xsd:string .
-
-<http://placeholder.org#9016df7d-5311-4e66-938a-d497ce5bc4c4> a <http://www.w3.org/2002/07/owl#Class>,
-        ns3:Agent ;
+<http://placeholder.org#a05042a0-5a3d-4541-a66f-98e82d7ba8bd> a ns2:Agent ;
     rdfs:label "Agent X"^^xsd:string .
 
-<http://placeholder.org#dd4e319e-b13b-4f9d-8e90-d7d41814d127> a <http://www.w3.org/2002/07/owl#Class>,
-        ns3:Activity ;
+<http://web3-wron:8080/water/thredds/somefile.nc> a ns2:Entity ;
+    rdfs:label "Output Data"^^xsd:string ;
+    rdfs:comment "The Entity, 03"^^xsd:string ;
+    ns2:wasAttributedTo <http://placeholder.org#8b73b26c-b8a2-40b5-94fe-e62f108f0671> .
+
+<http://placeholder.org#8b73b26c-b8a2-40b5-94fe-e62f108f0671> a ns2:Agent ;
+    rdfs:label "Agent Orange"^^xsd:string .
+
+<http://placeholder.org#f28f715b-ff74-4a94-bddc-dec4fb4ba909> a ns2:Activity ;
     rdfs:label "Test Activity"^^xsd:string ;
     rdfs:comment "A test Activity"^^xsd:string ;
-    ns3:endedAtTime "2014-06-25T12:13:24"^^xsd:dateTime ;
-    ns3:generated <http://web3-wron:8080/water/thredds/somefile.nc> ;
-    ns3:startedAtTime "2014-06-25T12:13:14"^^xsd:dateTime ;
-    ns3:used <http://placeholder.org#36ba06a3-ee2a-4541-8320-357d365a2bec>,
-        <http://web3-wron:8080/water/thredds/fileServer/Awra/AwraL/355/Daily/Ss/2012/20120923_Ss> ;
-    ns3:wasAssociatedWith <http://placeholder.org#9016df7d-5311-4e66-938a-d497ce5bc4c4> .
+    ns2:endedAtTime "2014-06-25T12:13:24"^^xsd:dateTime ;
+    ns2:generated <http://web3-wron:8080/water/thredds/somefile.nc> ;
+    ns2:startedAtTime "2014-06-25T12:13:14"^^xsd:dateTime ;
+    ns2:used <http://pid.geoscience.gov.au/dataset/12>,
+        <http://placeholder.org#0714b17b-ae3e-4fbb-9e99-9d421dd9e1bb> ;
+    ns2:wasAssociatedWith <http://placeholder.org#a05042a0-5a3d-4541-a66f-98e82d7ba8bd> .
 

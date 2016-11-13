@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 from pyproms import *
 
 # Example Agents, could be people or Organisations
@@ -10,27 +10,29 @@ agx = ProvAgent("Agent X")
 rs = PromsReportingSystem('Workflow System Z')
 
 # The single Activity, as Basic Reports only allow 1
-startedAtTime = datetime.datetime.strptime('2014-06-25T12:13:14', '%Y-%m-%dT%H:%M:%S')
-endedAtTime = datetime.datetime.strptime('2014-06-25T12:13:24', '%Y-%m-%dT%H:%M:%S')
+startedAtTime = datetime.strptime('2014-06-25T12:13:14', '%Y-%m-%dT%H:%M:%S')
+endedAtTime = datetime.strptime('2014-06-25T12:13:24', '%Y-%m-%dT%H:%M:%S')
 report_activity = ProvActivity('Test Activity',
                                startedAtTime,
                                endedAtTime,
                                wasAssociatedWith=agx,
                                comment='A test Activity')
+generatedAtTime = datetime.strptime('2014-06-25T12:13:34', '%Y-%m-%dT%H:%M:%S')
 
-# The Report
+# make the Report
 r = PromsBasicReport('Test Basic Report PyPROMS',
                      rs,  # this is the Reporting System
                      'report-71',  # this could be anything that the Reporting System uses to keep track of Reports
                      report_activity,
+                     generatedAtTime,
                      comment='This is an example Basic Report')
 
-# Save the report
+# save the report
 report_file = 'example_basic_report.ttl'
 with open(report_file, 'w') as f:
     f.write((r.get_graph().serialize(format='n3')).decode('UTF-8'))
 
- #print the report, just for testing
+# print the report, just for testing
 print open(report_file).read()
 
 # Send (POST) the Report to a PROMS Server instance

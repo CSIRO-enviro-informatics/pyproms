@@ -1,33 +1,28 @@
-@prefix ns1: <http://www.w3.org/ns/prov#> .
-@prefix ns2: <http://promsns.org/def/proms#> .
+@prefix ns1: <http://promsns.org/def/proms#> .
+@prefix ns2: <http://www.w3.org/ns/prov#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<http://placeholder.org#217c5a36-9f6f-41f9-a53b-63a595f6cd97> a ns2:BasicReport,
-        ns2:Report,
-        <http://www.w3.org/2002/07/owl#Class> ;
+<http://placeholder.org#62d4fdd1-72ca-4217-bfec-270698423b59> a ns1:BasicReport ;
     rdfs:label "Test Basic Report PyPROMS"^^xsd:string ;
-    ns2:endingActivity <http://placeholder.org#c982f4ea-ca14-4ec2-84fa-88c0d30a2e3f> ;
-    ns2:nativeId "report-71"^^xsd:string ;
-    ns2:reportingSystem <http://placeholder.org#815f7376-c37d-4a14-8f4a-25703887dbf8> ;
-    ns2:startingActivity <http://placeholder.org#c982f4ea-ca14-4ec2-84fa-88c0d30a2e3f> .
+    ns1:endingActivity <http://placeholder.org#3dc9f488-efc9-449f-b9b2-9da67d735eaf> ;
+    ns1:nativeId "report-71"^^xsd:string ;
+    ns1:startingActivity <http://placeholder.org#3dc9f488-efc9-449f-b9b2-9da67d735eaf> ;
+    ns1:wasReportedBy <http://placeholder.org#021007cf-f6f9-4cbc-92c5-6e04ed92b079> ;
+    ns2:generatedAtTime "2014-06-25T12:13:34"^^xsd:dateTime .
 
-<http://placeholder.org#815f7376-c37d-4a14-8f4a-25703887dbf8> a ns2:ReportingSystem,
-        <http://www.w3.org/2002/07/owl#Class>,
-        ns1:Agent ;
+<http://placeholder.org#021007cf-f6f9-4cbc-92c5-6e04ed92b079> a ns1:ReportingSystem ;
     rdfs:label "Workflow System Z"^^xsd:string .
 
-<http://placeholder.org#995dd04c-36ea-4fb6-83de-de1537e977af> a <http://www.w3.org/2002/07/owl#Class>,
-        ns1:Agent ;
+<http://placeholder.org#45291fbd-904e-4eb2-88fc-927005def4ac> a ns2:Agent ;
     rdfs:label "Agent X"^^xsd:string .
 
-<http://placeholder.org#c982f4ea-ca14-4ec2-84fa-88c0d30a2e3f> a <http://www.w3.org/2002/07/owl#Class>,
-        ns1:Activity ;
+<http://placeholder.org#3dc9f488-efc9-449f-b9b2-9da67d735eaf> a ns2:Activity ;
     rdfs:label "Test Activity"^^xsd:string ;
     rdfs:comment "A test Activity"^^xsd:string ;
-    ns1:endedAtTime "2014-06-25T12:13:24"^^xsd:dateTime ;
-    ns1:startedAtTime "2014-06-25T12:13:14"^^xsd:dateTime ;
-    ns1:wasAssociatedWith <http://placeholder.org#995dd04c-36ea-4fb6-83de-de1537e977af> .
+    ns2:endedAtTime "2014-06-25T12:13:24"^^xsd:dateTime ;
+    ns2:startedAtTime "2014-06-25T12:13:14"^^xsd:dateTime ;
+    ns2:wasAssociatedWith <http://placeholder.org#45291fbd-904e-4eb2-88fc-927005def4ac> .
 
