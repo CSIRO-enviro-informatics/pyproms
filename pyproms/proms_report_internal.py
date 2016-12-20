@@ -57,6 +57,7 @@ class PromsInternalReport(PromsReport):
         PromsReport.make_graph(self)
 
         PROMS = Namespace('http://promsns.org/def/proms#')
+        self.g.bind('proms', PROMS)
 
         self.g.remove((
             URIRef(self.uri),

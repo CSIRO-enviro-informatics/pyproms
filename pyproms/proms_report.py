@@ -61,7 +61,9 @@ class PromsReport(OwlClass):
 
         XSD = Namespace('http://www.w3.org/2001/XMLSchema#')
         PROV = Namespace('http://www.w3.org/ns/prov#')
+        self.g.bind('prov', PROV)
         PROMS = Namespace('http://promsns.org/def/proms#')
+        self.g.bind('proms', PROMS)
 
         self.g.remove((
             URIRef(self.uri),

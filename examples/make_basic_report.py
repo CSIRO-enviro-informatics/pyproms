@@ -28,7 +28,7 @@ r = PromsBasicReport('Test Basic Report PyPROMS',
                      comment='This is an example Basic Report')
 
 # save the report
-report_file = 'example_basic_report.ttl'
+report_file = 'example_report_basic.ttl'
 with open(report_file, 'w') as f:
     f.write((r.get_graph().serialize(format='n3')).decode('UTF-8'))
 

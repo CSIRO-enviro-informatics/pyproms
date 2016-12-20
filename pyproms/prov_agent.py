@@ -37,6 +37,7 @@ class ProvAgent(OwlClass):
         OwlClass.make_graph(self)
 
         PROV = Namespace('http://www.w3.org/ns/prov#')
+        self.g.bind('prov', PROV)
 
         self.g.remove((
             URIRef(self.uri),

@@ -92,6 +92,7 @@ class ProvActivity(OwlClass):
 
         XSD = Namespace('http://www.w3.org/2001/XMLSchema#')
         PROV = Namespace('http://www.w3.org/ns/prov#')
+        self.g.bind('prov', PROV)
 
         self.g.remove((
             URIRef(self.uri),

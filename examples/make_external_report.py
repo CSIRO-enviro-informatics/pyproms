@@ -43,7 +43,7 @@ r = PromsExternalReport('Test External Report PyPROMS',
                         comment='This is an example Basic Report')
 
 # Save the report
-report_file = 'example_external_report.ttl'
+report_file = 'example_report_external.ttl'
 with open(report_file, 'w') as f:
     f.write((r.get_graph().serialize(format='n3')).decode('UTF-8'))
 

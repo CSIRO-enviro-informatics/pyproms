@@ -30,7 +30,9 @@ class PromsReportingSystem(ProvAgent):
         ProvAgent.make_graph(self)
 
         PROMS = Namespace('http://promsns.org/def/proms#')
+        self.g.bind('proms', PROMS)
         PROV = Namespace('http://www.w3.org/ns/prov#')
+        self.g.bind('prov', PROV)
 
         self.g.remove((
             URIRef(self.uri),

@@ -34,6 +34,7 @@ class PromsExternalReport(PromsReport):
         PromsReport.make_graph(self)
 
         PROMS = Namespace('http://promsns.org/def/proms#')
+        self.g.bind('proms', PROMS)
 
         # The only thing we need to do here is to redefine the Report class as BasicReport.
         # There are no additional properties as the input & output Entities are part of the Activity

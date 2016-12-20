@@ -71,7 +71,7 @@ r = PromsInternalReport('Test Internal Report PyPROMS',
                         comment='This is an example Internal Report')
 
 # save the report
-report_file = 'example_internal_report.ttl'
+report_file = 'example_report_internal.ttl'
 with open(report_file, 'w') as f:
     f.write((r.get_graph().serialize(format='n3')).decode('UTF-8'))
 
@@ -79,4 +79,6 @@ with open(report_file, 'w') as f:
 print open(report_file).read()
 
 # send (POST) the Report to a PROMS Server instance
-#pr = Reporter().post('http://some-proms-server.org.au/reportingsystem/workflow_system_z/report/', r)
+# pr = ReportSender().post('http://pid.geoscience.gov.au/service/proms-dev/id/report/', r)
+# print pr.status_code
+# print pr.content
