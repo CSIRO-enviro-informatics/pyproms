@@ -1,6 +1,6 @@
 import logging
 from datetime import datetime
-from rdflib import URIRef, Namespace, Graph, Literal, compare
+from rdflib import URIRef, Namespace, Graph, Literal
 from rdflib.namespace import RDF, RDFS, XSD
 from pyproms import PromsReportingSystem, ProvActivity, ProvEntity, PromsBasicReport, PromsExternalReport, \
     PromsInternalReport
