@@ -1,4 +1,4 @@
-from rdflib import URIRef, Literal, Namespace
+from rdflib import URIRef, Namespace
 from rdflib.namespace import RDF, OWL
 from pyproms.owlclass import OwlClass
 

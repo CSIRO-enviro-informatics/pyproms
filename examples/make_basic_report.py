@@ -33,7 +33,7 @@ with open(report_file, 'w') as f:
     f.write((r.get_graph().serialize(format='n3')).decode('UTF-8'))
 
 # print the report, just for testing
-print open(report_file).read()
+print(open(report_file).read())
 
 # Send (POST) the Report to a PROMS Server instance
 #pr = Reporter().post('http://some-proms-server.org.au/reportingsystem/workflow_system_z/report/', r)

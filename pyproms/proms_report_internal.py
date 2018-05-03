@@ -1,8 +1,8 @@
 from rdflib import URIRef, Namespace
-from rdflib.namespace import RDF, OWL
+from rdflib.namespace import RDF
 from pyproms.proms_report import PromsReport
 from pyproms.prov_activity import ProvActivity
-from proms_error import PromsOntologyError
+from pyproms.proms_error import *
 
 
 class PromsInternalReport(PromsReport):

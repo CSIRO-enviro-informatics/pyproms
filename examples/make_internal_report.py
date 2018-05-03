@@ -76,7 +76,7 @@ with open(report_file, 'w') as f:
     f.write((r.get_graph().serialize(format='n3')).decode('UTF-8'))
 
 # print the report, just for testing
-print open(report_file).read()
+print(open(report_file).read())
 
 # send (POST) the Report to a PROMS Server instance
 # pr = ReportSender().post('http://pid.geoscience.gov.au/service/proms-dev/id/report/', r)

@@ -40,7 +40,7 @@ def test_entity_defined_here_minmal():
     g.add((entity_uri, PROV.value, value))
 
     # create an Entity via toolkit, get its graph
-    e = ProvEntity(entity_label_string, entity_uri_string, None, None, 42) # TODO: replace fixed URI with a BNode
+    e = ProvEntity(entity_label_string, entity_uri_string, None, None, 42)  # TODO: replace fixed URI with a BNode
     g2 = e.get_graph()
 
     assert g.isomorphic(g2)

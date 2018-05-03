@@ -81,10 +81,10 @@ r1 = PromsBasicReport('Test Basic Report',
                       rs1,
                       'abc123-def456',
                       a1)
-print r1.serialize_graph()
+print(r1.serialize_graph())
 
 r2 = PromsBasicReport('Test External Report',
                       rs1,
                       'abc123-def456',
                       a1)
-print r1.serialize_graph()
+print(r1.serialize_graph())
