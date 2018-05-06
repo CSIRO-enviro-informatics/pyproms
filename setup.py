@@ -13,7 +13,7 @@ setup(
     author='Nicholas Car',
     author_email='nicholas.car@csiro.au',
     url='https://github.com/CSIRO-enviro-informatics/pyproms',
-    download_url='https://github.com/CSIRO-enviro-informatics/pyproms/archive/master.zip',
+    download_url='https://github.com/CSIRO-enviro-informatics/pyproms/archive/v1.5.0.tar.gz',
     license='LICENSE.txt',
     keywords=['rdf', 'prov', 'prov-o', 'proms', 'proms-o', 'provenance'],
     long_description=readme,
@@ -36,7 +36,6 @@ setup(
         'Bug Reports': 'https://github.com/CSIRO-enviro-informatics/pyproms/issues',
         'Source': 'https://github.com/CSIRO-enviro-informatics/pyproms/',
     },
-    python_requires='>=3.0',
     install_requires=[
         'rdflib >= 4.0.0',
         'requests'
